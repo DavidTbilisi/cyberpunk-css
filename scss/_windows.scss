@@ -1,0 +1,88 @@
+// --------------------------------------------------------
+// WINDOW / DIALOG STYLES (Retro OS look)
+// --------------------------------------------------------
+
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'fonts' as *;
+
+/* Window shell */
+.cp-window {
+  display: block;
+  background: rgba(0,0,0,0.55);
+  border: 2px solid $cp-purple;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6), 0 0 0 3px rgba($cp-purple, 0.06);
+  overflow: hidden;
+  min-width: 280px;
+}
+
+/* Titlebar */
+.cp-window__titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: linear-gradient(90deg, rgba($cp-magenta,0.03), rgba($cp-cyan,0.02));
+  border-bottom: 1px solid rgba($cp-border, 0.06);
+}
+
+.cp-window__title {
+  font-family: $font-display;
+  font-size: 13px;
+  color: $cp-magenta;
+  letter-spacing: 1px;
+  @include retro-glow-text($cp-magenta);
+}
+
+.cp-window__controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.cp-window__btn {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  border: 1px solid rgba($cp-border, 0.12);
+  background: rgba(0,0,0,0.35);
+  cursor: pointer;
+}
+.cp-window__btn--close { background: $cp-amber; }
+.cp-window__btn--min   { background: $cp-magenta; }
+.cp-window__btn--max   { background: $cp-green; }
+
+/* Content */
+.cp-window__body {
+  padding: 16px;
+  background: linear-gradient(90deg, rgba($cp-magenta, .02) 1px, transparent 1px), linear-gradient(rgba($cp-magenta, .02) 1px, transparent 1px);
+  background-size: 20px 20px;
+  color: $cp-muted;
+}
+
+.cp-window__footer {
+  padding: 8px 12px;
+  border-top: 1px solid rgba($cp-border, 0.06);
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+/* Variants */
+.cp-window--floating {
+  transform: translateY(6px);
+}
+
+.cp-window--accent {
+  border-color: $cp-cyan;
+  box-shadow: 0 8px 24px rgba($cp-cyan, 0.06), 0 0 0 3px rgba($cp-cyan, 0.04);
+}
+
+.cp-window--compact .cp-window__body {
+  padding: 10px;
+}
+
+/* Make titlebar text selectable false when used as drag handle */
+.cp-window__title,
+.cp-window__controls { user-select: none; }

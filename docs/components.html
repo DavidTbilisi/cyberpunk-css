@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>RETROPUNK — Components</title>
+  <link rel="stylesheet" href="../cyberpunk.css">
+  <style>body{font-family:system-ui,Segoe UI,Roboto,Arial;background:#05050a;color:#e6e6ee;padding:28px}nav{margin-bottom:18px}pre{background:#06060b;padding:10px;border-radius:6px}</style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Overview</a> ·
+    <a href="components.html">Components</a> ·
+    <a href="styles.html">Styles & Variables</a> ·
+    <a href="js-api.html">JS API</a>
+  </nav>
+  <main>
+    <h1>Components</h1>
+
+    <section>
+      <h2>Buttons</h2>
+      <p>Use the <code>.cp-btn</code> class. Variants via attributes or contextual classes (e.g. <code>data-variant="danger"</code>).</p>
+
+      <div class="cp-panel" style="padding:12px; margin-bottom:12px;">
+        <div class="cp-hstack">
+          <button class="cp-btn">Primary</button>
+          <button class="cp-btn" data-variant="danger">Danger</button>
+          <button class="cp-btn" onclick="CyberUI.sfx.play('click')">Play Click SFX</button>
+        </div>
+      </div>
+
+      <pre>&lt;button class="cp-btn"&gt;Primary&lt;/button&gt;
+&lt;button class="cp-btn" data-variant="danger"&gt;Danger&lt;/button&gt;</pre>
+    </section>
+
+    <section>
+      <h2>Network Topology Graph</h2>
+      <p>Visualize nodes and edges with simple packet animations. This is a simulated view for demos only.</p>
+
+      <div class="cp-panel" style="margin-top:12px;">
+        <div style="display:flex;gap:12px;flex-direction:column;">
+          <button class="cp-btn" id="load-netgraph">Load Sample Topology</button>
+          <div id="demo-netgraph" style="width:100%;max-width:980px;"></div>
+        </div>
+      </div>
+
+      <pre>&lt;div class="cp-netgraph" id="demo-netgraph"&gt;&lt;/div&gt;</pre>
+    </section>
+
+    <section>
+      <h2>Navbar</h2>
+      <p>Markup uses <code>.cp-navbar</code> with link buttons using <code>.cp-navbar__link</code>. Wrap link text in a <code>&lt;span&gt;</code> when you want the typing cursor glyph.</p>
+      <pre>&lt;nav class="cp-navbar"&gt;
+  &lt;div class="cp-hstack"&gt;
+    &lt;button class="cp-navbar__link"&gt;&lt;span&gt;Home&lt;/span&gt;&lt;/button&gt;
+    &lt;button class="cp-navbar__link"&gt;&lt;span&gt;Components&lt;/span&gt;&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/nav&gt;</pre>
+
+      <p>Rendered example:</p>
+      <nav class="cp-navbar" style="margin-bottom:12px;">
+        <div style="display:flex;align-items:center;gap:18px;">
+          <div class="cp-navbar__brand">RETROPUNK</div>
+          <div class="cp-navbar__links">
+            <button class="cp-navbar__link"><span>Home</span></button>
+            <button class="cp-navbar__link" data-active="true"><span>Components</span></button>
+            <button class="cp-navbar__link"><span>System</span></button>
+          </div>
+        </div>
+      </nav>
+
+      <p>Accessibility: links are implemented as buttons by default; ensure they have keyboard focusability and ARIA roles if used as true navigation anchors.</p>
+    </section>
+
+    <section>
+      <h2>Panels & Cards</h2>
+      <p>Use <code>.cp-panel</code> and <code>.cp-card</code> for content blocks. Panels include grid background mixin for retro feel.</p>
+    </section>
+
+    <section>
+      <h2>Modals</h2>
+      <p>Structure:</p>
+      <pre>&lt;div class="cp-modal-backdrop" id="demo-modal"&gt;
+  &lt;div class="cp-modal"&gt;...&lt;/div&gt;
+&lt;/div&gt;</pre>
+      <p>Use <code>is-open</code> class on the backdrop to show the modal.</p>
+
+      <div class="cp-panel" style="margin-top:12px;">
+        <div class="cp-stack">
+          <button class="cp-btn" onclick="openModal()">Open Demo Modal</button>
+          <p class="cp-subtitle">Click to open the modal provided by the demo scripts (<code>openModal()</code> defined in the demo).</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Hex / Binary Viewer</h2>
+      <p>Use the <code>.cp-hex</code> component to display file data in offset/hex/ascii columns. The viewer supports copy-to-clipboard.</p>
+
+      <div class="cp-panel" style="margin-top:12px;">
+        <div style="display:flex;gap:12px;align-items:flex-start;flex-direction:column;">
+          <button class="cp-btn" id="load-hex-btn">Load Sample Bytes</button>
+          <div id="demo-hex" style="width:100%;max-width:900px;"></div>
+        </div>
+      </div>
+
+      <pre>&lt;div class="cp-hex" id="demo-hex"&gt;&lt;/div&gt;</pre>
+    </section>
+
+    <section>
+      <h2>Windows (Retro Dialog)</h2>
+      <p>Use <code>.cp-window</code> to render framed dialog windows with a titlebar, controls and footer actions. Good for system-like widgets and panels.</p>
+
+      <div class="cp-window" style="margin-top:12px;max-width:640px;">
+        <div class="cp-window__titlebar">
+          <div class="cp-window__title">System Monitor</div>
+          <div class="cp-window__controls">
+            <button class="cp-window__btn cp-window__btn--close" aria-label="Close"></button>
+            <button class="cp-window__btn cp-window__btn--min" aria-label="Minimize"></button>
+            <button class="cp-window__btn cp-window__btn--max" aria-label="Maximize"></button>
+          </div>
+        </div>
+        <div class="cp-window__body">
+          <p>CPU: <strong style="color:var(--cp-green)">78%</strong></p>
+          <p>Memory: <strong style="color:var(--cp-cyan)">2.3GB</strong></p>
+        </div>
+        <div class="cp-window__footer">
+          <button class="cp-btn">Close</button>
+        </div>
+      </div>
+
+      <pre>&lt;div class="cp-window"&gt;
+  &lt;div class="cp-window__titlebar"&gt;...&lt;/div&gt;
+  &lt;div class="cp-window__body"&gt;...&lt;/div&gt;
+  &lt;div class="cp-window__footer"&gt;...&lt;/div&gt;
+&lt;/div&gt;</pre>
+    </section>
+
+    <section>
+      <h2>Terminal</h2>
+      <p>The framework includes a terminal component for showing console output or examples. Use <code>.cp-terminal</code> with header, controls and body lines.</p>
+
+      <div class="cp-terminal" style="margin-top:12px;">
+        <div class="cp-terminal__header">
+          <div class="cp-terminal__controls">
+            <span class="dot dot--close"></span>
+            <span class="dot dot--min"></span>
+            <span class="dot dot--max"></span>
+          </div>
+          <div class="cp-terminal__title">demo@retropunk:~</div>
+        </div>
+        <div class="cp-terminal__body">
+          <div class="cp-terminal__line"><span class="cp-terminal__prompt">~$</span> git status</div>
+          <div class="cp-terminal__line cp-terminal__muted">On branch main</div>
+          <div class="cp-terminal__line">nothing to commit, working tree clean</div>
+        </div>
+      </div>
+
+      <pre>&lt;div class="cp-terminal"&gt;
+  &lt;div class="cp-terminal__header"&gt;...&lt;/div&gt;
+  &lt;div class="cp-terminal__body"&gt;...
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+    </section>
+
+    <section>
+      <h2>Toasts</h2>
+      <p>Container: <code>#toast-stack</code> with toasts using <code>.cp-toast</code>, and variants like <code>.cp-toast--success</code> and <code>.cp-toast--error</code>.</p>
+    </section>
+
+  </main>
+  <script src="../cyberpunk.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      try { CyberUI.init(); } catch (e) {}
+      const btn = document.getElementById('load-hex-btn');
+      if (btn) btn.addEventListener('click', () => {
+        const arr = new Uint8Array([0,1,2,3,4,10,13,32,65,66,67,68,69,70,255,128,0,99,100,101]);
+        CyberUI.hexViewer.render('#demo-hex', arr);
+      });
+      const netBtn = document.getElementById('load-netgraph');
+      if (netBtn) netBtn.addEventListener('click', () => {
+        const topology = {
+          nodes: [
+            { id: 'a', label: 'Gateway', type: 'router' },
+            { id: 'b', label: 'Edge-1', type: 'node' },
+            { id: 'c', label: 'Edge-2', type: 'node' },
+            { id: 'd', label: 'DB-01', type: 'server' },
+            { id: 'e', label: 'Auth', type: 'server' }
+          ],
+          edges: [
+            { source: 'a', target: 'b' },
+            { source: 'a', target: 'c' },
+            { source: 'a', target: 'd' },
+            { source: 'a', target: 'e' },
+            { source: 'b', target: 'd' }
+          ]
+        };
+        CyberUI.netGraph.render('#demo-netgraph', topology, { emitInterval: 1200 });
+      });
+    });
+  </script>
+</body>
+</html>

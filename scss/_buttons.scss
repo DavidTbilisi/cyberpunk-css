@@ -1,0 +1,36 @@
+// --------------------------------------------------------
+// BUTTONS
+// --------------------------------------------------------
+
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'fonts' as *;
+
+.cp-btn {
+  display: inline-block;
+  padding: 8px 18px;
+  font-family: $font-body;
+  font-size: 20px;
+  text-transform: uppercase;
+  cursor: pointer;
+
+  @include retro-border($cp-cyan);
+  @include retro-glow-text($cp-cyan);
+
+  background: $cp-bg-panel;
+  transition: 80ms ease-in;
+
+  &:hover {
+    @include retro-border($cp-magenta);
+    @include retro-glow-text($cp-magenta);
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+.cp-btn[data-variant="danger"] {
+  @include retro-border($cp-amber);
+  @include retro-glow-text($cp-amber);
+}

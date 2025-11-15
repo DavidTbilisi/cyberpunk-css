@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>RETROPUNK — JavaScript API</title>
+  <link rel="stylesheet" href="../cyberpunk.css">
+  <style>body{font-family:system-ui,Segoe UI,Roboto,Arial;background:#05050a;color:#e6e6ee;padding:28px}nav{margin-bottom:18px}pre{background:#06060b;padding:10px;border-radius:6px}</style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Overview</a> ·
+    <a href="components.html">Components</a> ·
+    <a href="styles.html">Styles & Variables</a> ·
+    <a href="js-api.html">JS API</a>
+  </nav>
+  <main>
+    <h1>JavaScript API</h1>
+
+    <section>
+      <h2>Init</h2>
+      <p>The repo's <code>cyberpunk.js</code> exposes a global <code>CyberUI</code> object with an <code>init()</code> entrypoint used by the demo. Call it after DOM load.</p>
+      <pre>&lt;script src="cyberpunk.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  window.addEventListener('load', () =&gt; CyberUI.init());
+&lt;/script&gt;</pre>
+    </section>
+
+    <section>
+      <h2>SFX</h2>
+      <p>There is an internal WebAudio SFX engine. Use:</p>
+      <pre>CyberUI.sfx.play('click');
+CyberUI.sfx.play('keypress');
+CyberUI.sfx.play('success');
+CyberUI.sfx.play('error');
+CyberUI.sfx.play('open');
+CyberUI.sfx.play('close');</pre>
+
+      <p>Note: browsers require a user gesture to unlock audio. The demo includes an audio unlock helper that resumes the AudioContext on first pointer/key interaction.</p>
+    </section>
+
+    <section>
+      <h2>Helpers</h2>
+      <p>Useful functions (examples in <code>cyberpunk.js</code>):</p>
+      <ul>
+        <li><code>CyberUI.toast(message, variant)</code> — shows a toast in the stack</li>
+        <li><code>CyberUI.openModal(id)</code> / <code>CyberUI.closeModal(id)</code> — modal helpers</li>
+      </ul>
+      <h3>Examples</h3>
+      <p>Show a toast programmatically:</p>
+      <pre>CyberUI.toast('Mission complete', 'success');</pre>
+
+      <p>Play a sound and open a modal:</p>
+      <pre>CyberUI.sfx.play('open');
+CyberUI.openModal('demo-modal');</pre>
+    </section>
+
+    <section>
+      <h2>Testing & Debug</h2>
+      <p>Open the browser console and call the SFX or helpers directly to test without UI interactions.</p>
+      <pre>CyberUI.sfx.play('click');
+CyberUI.toast('Test', 'success');</pre>
+    </section>
+  </main>
+</body>
+</html>

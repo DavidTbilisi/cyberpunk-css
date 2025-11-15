@@ -1,0 +1,223 @@
+// --------------------------------------------------------
+// NAVBAR COMPONENTS — SOLID RETRO CYBERPUNK EDITION
+// --------------------------------------------------------
+
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'fonts' as *;
+
+
+// --------------------------------------------------------
+// BASE NAVBAR STRUCTURE
+// --------------------------------------------------------
+
+.cp-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+
+  // Solid mechanical panel look
+  height: 72px;
+  width: 100%;
+
+  padding: 0 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: rgba(0, 0, 0, 0.55);
+
+  @include retro-border($cp-purple);
+  @include grid-bg;
+
+  transition: 140ms ease-out;
+
+  // CRT overlay
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+    z-index: 5;
+
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.025) 0px,
+      rgba(255, 255, 255, 0.025) 2px,
+      transparent 3px,
+      transparent 5px
+    );
+  }
+}
+
+// --------------------------------------------------------
+// NAVBAR SCROLL STATE (SOLID & STRONG)
+// --------------------------------------------------------
+
+.cp-navbar.is-scrolled {
+  background: rgba(0, 0, 0, 0.78);
+  transform: translateY(-1px) scaleY(0.97);
+
+  @include retro-border($cp-magenta);
+
+  box-shadow:
+    0 0 14px rgba($cp-magenta, 0.65),
+    0 4px 24px rgba($cp-cyan, 0.40),
+    inset 0 0 22px rgba($cp-magenta, 0.20);
+
+  animation: navbarGlow 1.4s ease-in-out infinite alternate;
+}
+
+@keyframes navbarGlow {
+  0% {
+    box-shadow:
+      0 0 10px rgba($cp-magenta, 0.35),
+      0 3px 12px rgba($cp-cyan, 0.20),
+      inset 0 0 6px rgba($cp-magenta, 0.10);
+    transform: translateY(-1px) scaleY(0.985);
+    opacity: 0.98;
+  }
+  100% {
+    box-shadow:
+      0 0 18px rgba($cp-magenta, 0.60),
+      0 6px 22px rgba($cp-cyan, 0.28),
+      inset 0 0 12px rgba($cp-magenta, 0.18);
+    transform: translateY(-2px) scaleY(0.97);
+    opacity: 1;
+  }
+}
+
+
+
+// --------------------------------------------------------
+// BRAND
+// --------------------------------------------------------
+
+.cp-navbar__brand {
+  z-index: 10;
+
+  font-family: $font-display;
+  font-size: 14px;
+  letter-spacing: 3px;
+
+  @include retro-glow-text($cp-magenta);
+}
+
+
+
+// --------------------------------------------------------
+// MENU GROUP
+// --------------------------------------------------------
+
+.cp-navbar__links {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  z-index: 10;
+}
+
+
+// --------------------------------------------------------
+// INDIVIDUAL LINKS — HEAVIER, MORE RETRO
+// --------------------------------------------------------
+
+.cp-navbar__link {
+  position: relative;
+  /* reset native button styles to ensure consistent neon look */
+  background: transparent;
+  border: none;
+  -webkit-appearance: none;
+  appearance: none;
+  padding: 6px 10px;
+  line-height: 1;
+
+  font-family: $font-body;
+  font-size: 22px;
+  text-transform: uppercase;
+
+  @include retro-glow-text($cp-green);
+  cursor: pointer;
+
+  transition: 80ms ease-in;
+  outline: none;
+
+  // retro underline
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+
+    width: 0%;
+    height: 2px;
+
+    background: $cp-cyan;
+    box-shadow: 0 0 6px $cp-cyan;
+    transition: width 110ms ease-out;
+  }
+
+  &:hover {
+    @include retro-glow-text($cp-cyan);
+    &::after {
+      width: 100%;
+    }
+  }
+
+  &:focus,
+  &:focus-visible {
+    @include retro-glow-text($cp-cyan);
+    box-shadow: 0 0 10px rgba($cp-cyan, 0.25);
+    border-radius: 4px;
+  }
+
+  &[data-active="true"] {
+    @include retro-glow-text($cp-magenta);
+    &::after {
+      width: 100%;
+      background: $cp-magenta;
+      box-shadow: 0 0 6px $cp-magenta;
+    }
+  }
+}
+
+
+// --------------------------------------------------------
+// LOADING CURSOR DOTS (IMPROVED + SOLID)
+// --------------------------------------------------------
+
+
+.cp-navbar__link > span {
+  position: relative;
+  display: inline-block;
+  padding-right: 18px; // space for cursor
+}
+
+/* cursor dots: use a clipped-width reveal of "...▌" so the stepped animation is reliable */
+.cp-navbar__link > span::after {
+  content: "...▌";
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: inline-block;
+  width: 1ch; /* reveal one step at a time */
+  overflow: hidden;
+  white-space: nowrap;
+  font-family: $font-body;
+  @include retro-glow-text($cp-cyan);
+}
+
+// Hover animation: only change color (reveal handled by base animation)
+.cp-navbar__link:hover > span::after {
+  @include retro-glow-text($cp-cyan);
+}
+
+// Active link cursor: magenta glow
+.cp-navbar__link[data-active="true"] > span::after {
+  @include retro-glow-text($cp-magenta);
+}
+
+
+// Frame-by-frame dot animation
+/* animations removed — cursor reveal is static */

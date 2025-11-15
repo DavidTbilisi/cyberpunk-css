@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>RETROPUNK — Documentation</title>
+  <link rel="stylesheet" href="../cyberpunk.css">
+  <style>body{font-family:system-ui,Segoe UI,Roboto,Arial;background:#05050a;color:#e6e6ee;padding:28px}nav{margin-bottom:18px}a{color:#9ef;text-decoration:none}main{max-width:980px}</style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Overview</a> ·
+    <a href="components.html">Components</a> ·
+    <a href="styles.html">Styles & Variables</a> ·
+    <a href="js-api.html">JS API</a>
+  </nav>
+  <main>
+    <h1>RETROPUNK UI — Documentation</h1>
+    <p>Welcome. This documentation folder contains quick reference pages for the RETROPUNK UI framework bundled in this repository.</p>
+    <section>
+      <h2>Getting started</h2>
+      <ol>
+        <li>Build the CSS (if you edit SCSS):
+<pre>npx sass cyberpunk.scss cyberpunk.css --style=compressed</pre>
+        </li>
+        <li>Open these docs or the <code>index.html</code> demo in a browser. To serve locally:
+<pre>python -m http.server 8000
+# open http://localhost:8000/docs/</pre>
+        </li>
+        <li>Scripts: <code>cyberpunk.js</code> exposes <code>CyberUI</code> and SFX helpers (see JS API page).</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>Quick Links</h2>
+      <ul>
+        <li><a href="components.html">Components reference (buttons, nav, panels, modals, toasts)</a></li>
+        <li><a href="styles.html">Styles & CSS variables (color palette, fonts, mixins)</a></li>
+        <li><a href="js-api.html">JavaScript API and SFX usage</a></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Live Example</h2>
+      <p>The snippet below both renders using the framework and shows the HTML you can reuse.</p>
+
+      <div class="cp-panel" style="margin-bottom:16px;">
+        <div class="cp-stack">
+          <div class="cp-hstack" style="gap:12px;">
+            <button class="cp-btn">Primary</button>
+            <button class="cp-btn" data-variant="danger">Danger</button>
+            <button class="cp-btn" onclick="showToast('Example toast', 'success')">Show Toast</button>
+            <button class="cp-btn" onclick="openModal()">Open Modal</button>
+          </div>
+          <p class="cp-subtitle" style="margin-top:10px;">Rendered with <code>.cp-panel</code>, <code>.cp-btn</code>, and helpers.</p>
+        </div>
+      </div>
+
+      <pre>&lt;div class="cp-panel"&gt;
+  &lt;button class="cp-btn"&gt;Primary&lt;/button&gt;
+  &lt;button class="cp-btn" data-variant="danger"&gt;Danger&lt;/button&gt;
+&lt;/div&gt;</pre>
+    </section>
+
+    <section>
+      <h2>Terminal Example</h2>
+      <p>Use the <code>.cp-terminal</code> component to display console-like output in the docs. This example demonstrates header controls, prompt lines and muted output.</p>
+
+      <div class="cp-terminal" style="margin-top:12px;">
+        <div class="cp-terminal__header">
+          <div class="cp-terminal__controls">
+            <span class="dot dot--close"></span>
+            <span class="dot dot--min"></span>
+            <span class="dot dot--max"></span>
+          </div>
+          <div class="cp-terminal__title">system@retropunk:~/project</div>
+        </div>
+        <div class="cp-terminal__body">
+          <div class="cp-terminal__line"><span class="cp-terminal__prompt">~$</span> npx sass cyberpunk.scss cyberpunk.css --style=compressed</div>
+          <div class="cp-terminal__line cp-terminal__muted">Compiling SCSS... 12 files</div>
+          <div class="cp-terminal__line">✔ cyberpunk.css generated</div>
+          <div class="cp-terminal__line cp-terminal__muted">Run <code>python -m http.server</code> to serve the demo locally.</div>
+        </div>
+      </div>
+
+      <pre>&lt;div class="cp-terminal"&gt;
+  &lt;div class="cp-terminal__header"&gt;...&lt;/div&gt;
+  &lt;div class="cp-terminal__body"&gt;
+    &lt;div class="cp-terminal__line"&gt;&lt;span class="cp-terminal__prompt"&gt;~$&lt;/span&gt; npx sass cyberpunk.scss cyberpunk.css --style=compressed&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+    </section>
+    </section>
+
+    <section>
+      <h2>Window Example</h2>
+      <p>Quick example of the window chrome component.</p>
+      <div class="cp-window" style="margin-top:12px;max-width:520px;">
+        <div class="cp-window__titlebar">
+          <div class="cp-window__title">RETROPUNK — Widget</div>
+          <div class="cp-window__controls">
+            <button class="cp-window__btn cp-window__btn--close"></button>
+            <button class="cp-window__btn cp-window__btn--min"></button>
+            <button class="cp-window__btn cp-window__btn--max"></button>
+          </div>
+        </div>
+        <div class="cp-window__body">
+          <p class="cp-subtitle">Small status widget inside the docs.</p>
+          <p>Uptime: <strong style="color:var(--cp-green)">12h 3m</strong></p>
+        </div>
+        <div class="cp-window__footer">
+          <button class="cp-btn">Dismiss</button>
+        </div>
+      </div>
+
+      <pre>&lt;div class="cp-window"&gt;...&lt;/div&gt;</pre>
+    </section>
+
+    <footer style="margin-top:28px;color:#9aa">Files: <code>cyberpunk.scss</code>, <code>cyberpunk.js</code></footer>
+  </main>
+</body>
+</html>

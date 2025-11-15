@@ -1,0 +1,41 @@
+// --------------------------------------------------------
+// MODAL COMPONENTS
+// --------------------------------------------------------
+
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'fonts' as *;
+
+.cp-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 900;
+}
+
+.cp-modal-backdrop.is-open {
+  display: flex;
+}
+
+.cp-modal {
+  width: min(480px, 92vw);
+  padding: 24px;
+  @include retro-border($cp-purple);
+  @include grid-bg;
+  background: rgba(0,0,0,0.5);
+  /* modal entrance animation removed */
+}
+
+.cp-modal__close {
+  background: transparent;
+  border: none;
+  font-family: $font-display;
+  font-size: 20px;
+  color: $cp-amber;
+  cursor: pointer;
+
+  &:hover { color: $cp-magenta; }
+}

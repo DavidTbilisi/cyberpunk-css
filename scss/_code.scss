@@ -1,0 +1,51 @@
+// --------------------------------------------------------
+// CODE / PRE STYLES
+// --------------------------------------------------------
+
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'fonts' as *;
+
+/* Inline code */
+code,
+kbd,
+samp {
+  font-family: $font-body;
+  font-size: 0.9rem;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: $cp-bg-panel;
+  color: $cp-cyan;
+  border: 1px solid rgba($cp-cyan, 0.12);
+  text-shadow: 0 0 6px rgba($cp-cyan, 0.08);
+  white-space: nowrap;
+}
+
+/* Block code */
+pre {
+  background: rgba(0,0,0,0.6);
+  padding: 14px;
+  border-radius: 8px;
+  overflow: auto;
+  border: 2px solid $cp-purple;
+  box-shadow: 0 0 0 2px rgba($cp-purple, 0.14), inset 0 0 10px rgba($cp-purple, 0.06);
+  color: $cp-green;
+  font-family: $font-body;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+pre code {
+  background: transparent;
+  padding: 0;
+  border: none;
+  color: inherit;
+  white-space: pre;
+}
+
+/* Small helper class for inline-copy boxes */
+.cp-code-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}

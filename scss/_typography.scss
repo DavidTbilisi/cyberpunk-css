@@ -1,0 +1,51 @@
+// --------------------------------------------------------
+// TYPOGRAPHY & TEXT EFFECTS
+// --------------------------------------------------------
+
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'fonts' as *;
+
+.cp-title {
+  font-family: $font-display;
+  font-size: 18px;
+  letter-spacing: 2px;
+  @include retro-glow-text($cp-magenta);
+}
+
+.cp-subtitle {
+  font-family: $font-body;
+  font-size: 22px;
+  @include retro-glow-text($cp-green);
+}
+
+// --------------------------------------------------------
+// GLITCH TEXT EFFECT
+// --------------------------------------------------------
+
+.cp-glitch {
+  position: relative;
+  display: inline-block;
+  font-family: $font-display;
+  color: $cp-magenta;
+  text-shadow: 0 0 3px $cp-magenta;
+
+  &::before, &::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0; left: 0;
+    opacity: 0.65;
+  }
+
+  &::before {
+    color: $cp-cyan;
+    transform: translate(-2px, 0);
+  }
+
+  &::after {
+    color: $cp-purple;
+    transform: translate(2px, 0);
+  }
+
+  /* glitch animation removed — decorative layers remain static */
+}

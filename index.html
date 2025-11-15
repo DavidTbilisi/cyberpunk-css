@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RETROPUNK UI FRAMEWORK 1984 – Complete Demo</title>
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="cyberpunk.css" />
+  
+  <style>
+    body { 
+      padding-bottom: 300px; 
+    }
+    .demo-section {
+      padding: 60px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
+    }
+    .component-demo {
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================= -->
+  <!-- STICKY NAVBAR -->
+  <!-- ========================= -->
+  <nav class="cp-navbar" id="main-navbar">
+    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0 40px;">
+      <div class="cp-glitch" data-text="RETROPUNK_1984" data-animate="true">
+        RETROPUNK_1984
+      </div>
+
+      <div class="cp-hstack">
+        <button class="cp-navbar__link" data-active="true">
+          <span>Home</span>
+        </button>
+        <button class="cp-navbar__link">
+          <span>Components</span>
+        </button>
+        <button class="cp-navbar__link">
+          <span>Effects</span>
+        </button>
+        <button class="cp-navbar__link">
+          <span>System</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+
+
+  <!-- ========================= -->
+  <!-- HERO SECTION -->
+  <!-- ========================= -->
+  <section class="cp-center" style="min-height: 50vh; text-align: center; padding: 80px 40px;">
+    <div class="cp-stack" style="align-items: center;">
+      <h1 class="cp-glitch" data-text="RETROPUNK UI FRAMEWORK" data-animate="true" style="font-size: 24px;">
+        RETROPUNK UI FRAMEWORK
+      </h1>
+      <p class="cp-subtitle" style="max-width: 600px; text-align: center;">
+        Complete cyberpunk CRT UI system with neon glows, scanlines, and retro aesthetics. 
+        Dark. Glowing. Animated. Modular.
+      </p>
+
+      <div class="cp-hstack" style="margin-top: 40px; flex-wrap: wrap; gap: 20px;">
+        <button class="cp-btn" id="toast-success-btn">Success Toast</button>
+        <button class="cp-btn" data-variant="danger" id="toast-error-btn">Error Toast</button>
+        <button class="cp-btn" id="open-modal">Open Modal</button>
+        <button class="cp-btn" id="scroll-demo">Scroll Effects</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= -->
+  <!-- WINDOWS / DIALOGS -->
+  <!-- ========================= -->
+  <section class="demo-section">
+    <h2 class="cp-title" style="margin-bottom: 40px;">Windows & Dialogs</h2>
+    <div class="cp-panel component-demo">
+      <h3 class="cp-title">Retro Window</h3>
+      <div class="cp-window" style="max-width:640px;">
+        <div class="cp-window__titlebar">
+          <div class="cp-window__title">System Monitor</div>
+          <div class="cp-window__controls">
+            <button class="cp-window__btn cp-window__btn--close" aria-label="Close"></button>
+            <button class="cp-window__btn cp-window__btn--min" aria-label="Minimize"></button>
+            <button class="cp-window__btn cp-window__btn--max" aria-label="Maximize"></button>
+          </div>
+        </div>
+        <div class="cp-window__body">
+          <p>CPU: <span style="color: var(--cp-green);">78%</span></p>
+          <p>Memory: <span style="color: var(--cp-cyan);">2.3GB</span></p>
+        </div>
+        <div class="cp-window__footer">
+          <button class="cp-btn">Close</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= -->
+  <!-- TYPOGRAPHY SHOWCASE -->
+  <!-- ========================= -->
+  <section class="demo-section">
+    <h2 class="cp-title" style="margin-bottom: 40px;">Typography & Text Effects</h2>
+    
+    <div class="demo-grid">
+      <div class="cp-panel component-demo">
+        <h3 class="cp-title">Titles & Subtitles</h3>
+        <div class="cp-stack">
+          <h1 class="cp-title">Main Title</h1>
+          <h2 class="cp-subtitle">Subtitle Text</h2>
+          <p>Regular body text with <a href="#">neon links</a> that glow on hover.</p>
+        </div>
+      </div>
+
+      <div class="cp-panel component-demo">
+        <h3 class="cp-title">Glitch Text Effects</h3>
+        <div class="cp-stack">
+          <div class="cp-glitch" data-text="STATIC GLITCH">STATIC GLITCH</div>
+          <div class="cp-glitch" data-text="ANIMATED GLITCH" data-animate="true">ANIMATED GLITCH</div>
+          <div class="cp-glitch" data-text="CYBER_NET_2077" data-animate="true">CYBER_NET_2077</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= -->
+  <!-- BUTTON SHOWCASE -->
+  <!-- ========================= -->
+  <section class="demo-section">
+    <h2 class="cp-title" style="margin-bottom: 40px;">Interactive Buttons</h2>
+    
+    <div class="cp-panel">
+      <div class="cp-stack">
+        <div>
+          <h4 class="cp-subtitle">Standard Buttons</h4>
+          <div class="cp-hstack" style="flex-wrap: wrap; margin-top: 20px;">
+            <button class="cp-btn">Primary</button>
+            <button class="cp-btn" data-variant="danger">Danger</button>
+            <button class="cp-btn" style="opacity: 0.5;" disabled>Disabled</button>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="cp-subtitle">Interactive States</h4>
+          <div class="cp-hstack" style="flex-wrap: wrap; margin-top: 20px;">
+            <button class="cp-btn" onclick="this.textContent = 'CLICKED!'">Click Me</button>
+            <button class="cp-btn" onmouseover="this.textContent = 'HOVERING'" onmouseout="this.textContent = 'Hover Test'">Hover Test</button>
+            <button class="cp-btn" onmousedown="this.style.transform = 'scale(0.95)'" onmouseup="this.style.transform = 'scale(1)'">Press Effect</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= -->
+  <!-- LAYOUT HELPERS -->
+  <!-- ========================= -->
+  <section class="demo-section">
+    <h2 class="cp-title" style="margin-bottom: 40px;">Layout Helpers</h2>
+    
+    <div class="demo-grid">
+      <div class="cp-card">
+        <div class="cp-card__title">Horizontal Stack (cp-hstack)</div>
+        <div class="cp-card__body">
+          <div class="cp-hstack">
+            <div class="cp-btn">Item 1</div>
+            <div class="cp-btn">Item 2</div>
+            <div class="cp-btn">Item 3</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cp-card">
+        <div class="cp-card__title">Vertical Stack (cp-stack)</div>
+        <div class="cp-card__body">
+          <div class="cp-stack">
+            <div class="cp-btn">Item A</div>
+            <div class="cp-btn">Item B</div>
+            <div class="cp-btn">Item C</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cp-card">
+        <div class="cp-card__title">Center Layout (cp-center)</div>
+        <div class="cp-card__body">
+          <div class="cp-center" style="height: 100px; border: 1px solid var(--cp-border);">
+            <div class="cp-btn">Centered</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= -->
+  <!-- PANELS & CARDS -->
+  <!-- ========================= -->
+  <section class="demo-section">
+    <h2 class="cp-title" style="margin-bottom: 40px;">Panels & Cards</h2>
+    
+    <div class="demo-grid">
+      <div class="cp-panel">
+        <h3 class="cp-title">Basic Panel</h3>
+        <p>Panels have purple borders and grid backgrounds for that retro terminal feel.</p>
+      </div>
+
+      <div class="cp-card">
+        <div class="cp-card__title">System Status</div>
+        <div class="cp-card__body">
+          <div class="cp-stack">
+            <p>CPU: <span style="color: var(--cp-green);">78%</span></p>
+            <p>Memory: <span style="color: var(--cp-cyan);">2.3GB</span></p>
+            <p>Network: <span style="color: var(--cp-magenta);">Active</span></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cp-card">
+        <div class="cp-card__title">Mission Brief</div>
+        <div class="cp-card__body">
+          Infiltrate the mainframe and extract the encrypted data packets. 
+          Avoid detection systems and maintain stealth protocols.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= -->
+  <!-- FORM COMPONENTS -->
+  <!-- ========================= -->
+  <section class="demo-section">
+    <h2 class="cp-title" style="margin-bottom: 40px;">Form Components</h2>
+    
+    <div class="demo-grid">
+      <div class="cp-card">
+        <div class="cp-card__title">User Authentication</div>
+        <div class="cp-card__body">
+          <div class="cp-stack">
+            <div class="cp-field">
+              <label class="cp-label">User Handle</label>
+              <input class="cp-input" placeholder="neo_matrix_1999" value="cyber_runner" />
+            </div>
+
+            <div class="cp-field">
+              <label class="cp-label">Access Level</label>
+              <select class="cp-select">
+                <option>Guest</option>
+                <option selected>Operator</option>
+                <option>Admin</option>
+                <option>Root</option>
+              </select>
+            </div>
+
+            <div class="cp-field">
+              <label class="cp-label">Mission Notes</label>
+              <textarea class="cp-textarea" placeholder="Enter mission details..." rows="3">System breach detected in sector 7. Recommend immediate lockdown protocols.</textarea>
+            </div>
+
+            <div class="cp-hstack">
+              <button class="cp-btn">Authenticate</button>
+              <button class="cp-btn" data-variant="danger">Reset</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cp-card">
+        <div class="cp-card__title">Quick Actions</div>
+        <div class="cp-card__body">
+          <div class="cp-stack">
+            <div class="cp-field">
+              <label class="cp-label">Command</label>
+              <input class="cp-input" placeholder="$ run diagnostic" />
+            </div>
+            
+            <div class="cp-field">
+              <label class="cp-label">Target System</label>
+              <input class="cp-input" placeholder="192.168.1.100" />
+            </div>
+
+            <button class="cp-btn" style="width: 100%;">Execute</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= -->
+  <!-- CRT & VISUAL EFFECTS -->
+  <!-- ========================= -->
+  <section class="demo-section">
+    <h2 class="cp-title" style="margin-bottom: 40px;">CRT & Visual Effects</h2>
+    
+    <div class="demo-grid">
+      <div class="cp-panel cp-crt">
+        <h3 class="cp-title">CRT Scanlines Effect</h3>
+        <p>This panel has the <code>.cp-crt</code> class applied, giving it authentic CRT monitor scanlines and subtle flicker effects.</p>
+      </div>
+
+      <div class="cp-card">
+        <div class="cp-card__title">Color Palette</div>
+        <div class="cp-card__body">
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px;">
+            <div style="background: var(--cp-green); padding: 10px; text-align: center; color: black; font-weight: bold;">GREEN</div>
+            <div style="background: var(--cp-cyan); padding: 10px; text-align: center; color: black; font-weight: bold;">CYAN</div>
+            <div style="background: var(--cp-magenta); padding: 10px; text-align: center; color: black; font-weight: bold;">MAGENTA</div>
+            <div style="background: var(--cp-purple); padding: 10px; text-align: center; color: white; font-weight: bold;">PURPLE</div>
+            <div style="background: var(--cp-blue); padding: 10px; text-align: center; color: white; font-weight: bold;">BLUE</div>
+            <div style="background: var(--cp-amber); padding: 10px; text-align: center; color: black; font-weight: bold;">AMBER</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= -->
+  <!-- INTERACTIVE DEMOS -->
+  <!-- ========================= -->
+  <section class="demo-section">
+    <h2 class="cp-title" style="margin-bottom: 40px;">Interactive Demonstrations</h2>
+    
+    <div class="cp-panel">
+      <h3 class="cp-subtitle" style="margin-bottom: 30px;">Test All Features</h3>
+      
+      <div class="demo-grid">
+        <div class="cp-stack">
+          <h4 class="cp-title">Notifications</h4>
+          <button class="cp-btn" onclick="showToast('Mission accomplished!', 'success')">Success Toast</button>
+          <button class="cp-btn" onclick="showToast('System error detected!', 'error')">Error Toast</button>
+          <button class="cp-btn" onclick="showToast('Data transfer complete.', 'default')">Info Toast</button>
+        </div>
+
+        <div class="cp-stack">
+          <h4 class="cp-title">Modal Dialog</h4>
+          <button class="cp-btn" onclick="openModal()">Open System Modal</button>
+          <button class="cp-btn" onclick="openConfirmModal()">Confirm Dialog</button>
+        </div>
+
+        <div class="cp-stack">
+          <h4 class="cp-title">Navbar Effects</h4>
+          <button class="cp-btn" onclick="scrollToSection()">Trigger Navbar Glow</button>
+          <button class="cp-btn" onclick="resetNavbar()">Reset Navbar</button>
+        </div>
+        <div class="cp-stack">
+          <h4 class="cp-title">Hex Viewer</h4>
+          <button class="cp-btn" id="load-demo-hex">Load Hex Viewer</button>
+          <div id="demo-hex" style="margin-top:12px; width:100%; max-width:680px;"></div>
+        </div>
+        <div class="cp-stack">
+          <h4 class="cp-title">Network Graph</h4>
+          <button class="cp-btn" id="load-demo-netgraph">Load Network Graph</button>
+          <div id="demo-netgraph" style="margin-top:12px; width:100%; max-width:680px;"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= -->
+  <!-- MODALS -->
+  <!-- ========================= -->
+  <div class="cp-modal-backdrop" id="demo-modal">
+    <div class="cp-modal">
+      <div class="cp-hstack" style="justify-content: space-between; margin-bottom: 20px;">
+        <h3 class="cp-title">System Alert</h3>
+        <button class="cp-modal__close" onclick="closeModal()">&times;</button>
+      </div>
+      
+      <div style="margin-bottom: 20px;">
+        <p>This is a cyberpunk-styled modal with neon borders and grid background effects.</p>
+        <p>Perfect for system alerts, confirmations, or detailed information display.</p>
+      </div>
+      
+      <div class="cp-hstack" style="justify-content: flex-end;">
+        <button class="cp-btn" onclick="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="cp-modal-backdrop" id="confirm-modal">
+    <div class="cp-modal">
+      <div class="cp-hstack" style="justify-content: space-between; margin-bottom: 20px;">
+        <h3 class="cp-title">Confirm Action</h3>
+        <button class="cp-modal__close" onclick="closeConfirmModal()">&times;</button>
+      </div>
+      
+      <div style="margin-bottom: 30px;">
+        <p>Are you sure you want to initiate system shutdown sequence?</p>
+        <p style="color: var(--cp-amber); font-size: 14px;">This action cannot be undone.</p>
+      </div>
+      
+      <div class="cp-hstack" style="justify-content: flex-end; gap: 15px;">
+        <button class="cp-btn" onclick="closeConfirmModal()">Cancel</button>
+        <button class="cp-btn" data-variant="danger" onclick="confirmAction()">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Stack Container -->
+  <div class="cp-toast-stack" id="toast-stack"></div>
+
+
+
+  <!-- ========================= -->
+  <!-- COMPREHENSIVE DEMO SCRIPTS -->
+  <!-- ========================= -->
+  <script src="cyberpunk.js"></script>
+  <script>
+    let toastCounter = 0;
+
+    // Toast System
+    function showToast(message, variant = 'default') {
+      const toastStack = document.getElementById('toast-stack');
+      const toast = document.createElement('div');
+      toast.className = `cp-toast ${variant !== 'default' ? `cp-toast--${variant}` : ''}`;
+      toast.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span>${message}</span>
+          <button class="cp-toast__close" onclick="removeToast(this)">&times;</button>
+        </div>
+      `;
+      toastStack.appendChild(toast);
+      
+      // Auto remove after 4 seconds
+      setTimeout(() => {
+        if (toast.parentNode) {
+          toast.remove();
+        }
+      }, 4000);
+    }
+
+    function removeToast(closeBtn) {
+      closeBtn.closest('.cp-toast').remove();
+    }
+
+    // Modal System
+    function openModal() {
+      document.getElementById('demo-modal').classList.add('is-open');
+    }
+
+    function closeModal() {
+      document.getElementById('demo-modal').classList.remove('is-open');
+    }
+
+    function openConfirmModal() {
+      document.getElementById('confirm-modal').classList.add('is-open');
+    }
+
+    function closeConfirmModal() {
+      document.getElementById('confirm-modal').classList.remove('is-open');
+    }
+
+    function confirmAction() {
+      showToast('System shutdown initiated...', 'error');
+      closeConfirmModal();
+    }
+
+    // Navbar Scroll Effects
+    function scrollToSection() {
+      window.scrollTo({ top: 800, behavior: 'smooth' });
+    }
+
+    function resetNavbar() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Navbar scroll detection for glow effect
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('main-navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('is-scrolled');
+      } else {
+        navbar.classList.remove('is-scrolled');
+      }
+    });
+
+    // Button event listeners for hero section
+    document.getElementById('toast-success-btn').onclick = () => {
+      showToast('Mission completed successfully!', 'success');
+    };
+
+    document.getElementById('toast-error-btn').onclick = () => {
+      showToast('System malfunction detected!', 'error');
+    };
+
+    document.getElementById('open-modal').onclick = openModal;
+
+    document.getElementById('scroll-demo').onclick = () => {
+      scrollToSection();
+      setTimeout(() => {
+        showToast('Navbar glow effect activated!', 'success');
+      }, 500);
+    };
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      // ESC to close modals
+      if (e.key === 'Escape') {
+        closeModal();
+        closeConfirmModal();
+      }
+      
+      // Ctrl/Cmd + Enter for quick success toast
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+        showToast('Quick action executed!', 'success');
+      }
+    });
+
+    // Initialize with welcome message
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        showToast('RETROPUNK UI Framework loaded successfully!', 'success');
+      }, 1000);
+    });
+
+    // Demo attachments: attach after DOM ready so earlier script errors don't block wiring
+    document.addEventListener('DOMContentLoaded', () => {
+      try {
+        const hexBtn = document.getElementById('load-demo-hex');
+        if (hexBtn) hexBtn.addEventListener('click', () => {
+          const arr = new Uint8Array([0,1,2,3,4,10,13,32,65,66,67,68,69,70,255,128,0,99,100,101]);
+          if (window.CyberUI && CyberUI.hexViewer) CyberUI.hexViewer.render('#demo-hex', arr);
+        });
+
+        const netBtn = document.getElementById('load-demo-netgraph');
+        if (netBtn) netBtn.addEventListener('click', () => {
+          const topology = {
+            nodes: [
+              { id: 'gw', label: 'Gateway', type: 'router' },
+              { id: 'n1', label: 'Node 1', type: 'node' },
+              { id: 'n2', label: 'Node 2', type: 'node' },
+              { id: 'db', label: 'DB Server', type: 'server' }
+            ],
+            edges: [
+              { source: 'gw', target: 'n1' },
+              { source: 'gw', target: 'n2' },
+              { source: 'gw', target: 'db' },
+              { source: 'n1', target: 'db' }
+            ]
+          };
+          if (window.CyberUI && CyberUI.netGraph) CyberUI.netGraph.render('#demo-netgraph', topology, { emitInterval: 1000 });
+        });
+      } catch (e) {
+        console.warn('Demo wiring failed', e);
+      }
+    });
+
+    // Click outside modal to close
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('cp-modal-backdrop')) {
+        closeModal();
+        closeConfirmModal();
+      }
+    });
+
+    // Simulate some dynamic content updates
+    setInterval(() => {
+      const randomCPU = Math.floor(Math.random() * 100);
+      const cpuElements = document.querySelectorAll('[data-cpu]');
+      cpuElements.forEach(el => {
+        el.textContent = `${randomCPU}%`;
+        el.style.color = randomCPU > 80 ? 'var(--cp-amber)' : 'var(--cp-green)';
+      });
+    }, 3000);
+
+    console.log(`
+    ╔══════════════════════════════════════════════════════════════════════╗
+    ║                    RETROPUNK UI FRAMEWORK 1984                       ║
+    ║                          Demo Loaded                                 ║
+    ╠══════════════════════════════════════════════════════════════════════╣
+    ║  Keyboard Shortcuts:                                                 ║
+    ║  • ESC: Close modals                                                 ║
+    ║  • Ctrl+Enter: Quick success toast                                   ║
+    ║                                                                      ║
+    ║  Available Components:                                               ║
+    ║  • Typography & Glitch Effects                                       ║
+    ║  • Interactive Buttons                                               ║
+    ║  • Cards & Panels                                                    ║
+    ║  • Form Components                                                   ║
+    ║  • Modal Dialogs                                                     ║
+    ║  • Toast Notifications                                               ║
+    ║  • CRT Effects & Scanlines                                           ║
+    ║  • Navbar with Scroll Glow                                           ║
+    ║  • Layout Helpers                                                    ║
+    ╚══════════════════════════════════════════════════════════════════════╝
+    `);
+  </script>
+
+</body>
+</html>

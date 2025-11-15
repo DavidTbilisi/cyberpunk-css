@@ -1,0 +1,42 @@
+// --------------------------------------------------------
+// BASE STYLES
+// --------------------------------------------------------
+
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'fonts' as *;
+
+/* Expose palette as CSS custom properties so demos using `var(--cp-*)` work */
+:root {
+  --cp-bg: #{$cp-bg};
+  --cp-bg-panel: #{$cp-bg-panel};
+  --cp-green: #{$cp-green};
+  --cp-cyan: #{$cp-cyan};
+  --cp-magenta: #{$cp-magenta};
+  --cp-purple: #{$cp-purple};
+  --cp-blue: #{$cp-blue};
+  --cp-amber: #{$cp-amber};
+  --cp-muted: #{$cp-muted};
+  --cp-border: #{$cp-border};
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0; padding: 0;
+  background: $cp-bg;
+  color: $cp-green;
+  font-family: $font-body;
+  font-size: 20px;
+}
+
+a {
+  @include retro-glow-text($cp-cyan);
+  text-decoration: none;
+
+  &:hover { color: $cp-magenta; }
+}

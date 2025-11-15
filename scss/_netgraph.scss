@@ -1,0 +1,42 @@
+// Network Topology Graph styles
+
+.cp-netgraph {
+  background: var(--cp-bg-panel);
+  color: var(--cp-foreground, #e6e6ee);
+  border: 1px solid var(--cp-border);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.cp-netgraph__header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:8px;
+}
+
+.cp-netgraph__title { color: var(--cp-purple); font-weight:600; font-size:13px; }
+
+.cp-netgraph__canvas {
+  width:100%;
+  height:360px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent 30%);
+  border-radius:6px;
+  overflow:hidden;
+}
+
+.cp-netgraph__legend { display:flex; gap:10px; align-items:center; }
+.cp-netgraph__legend .dot { width:10px; height:10px; border-radius:50%; }
+.dot--node { background: var(--cp-cyan); }
+.dot--router { background: var(--cp-magenta); }
+.dot--server { background: var(--cp-green); }
+
+.cp-netgraph svg { width:100%; height:100%; display:block; }
+
+.cp-netgraph__node-label { font-size:11px; fill: var(--cp-foreground); pointer-events: none; }
+
+.cp-netgraph__node { cursor: pointer; }
+.cp-netgraph__node:hover .cp-netgraph__node-circle { stroke: var(--cp-amber); stroke-width:1.6; }
+
+.cp-netgraph__packet { fill: var(--cp-yellow, #ffd95a); stroke: none; }

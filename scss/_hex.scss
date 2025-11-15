@@ -1,0 +1,72 @@
+// Hex / Binary Viewer styles
+// Minimal, high-contrast retro styling for hex viewers
+
+.cp-hex {
+  font-family: 'VT323', ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', 'Courier New', monospace;
+  background: var(--cp-bg-panel);
+  color: var(--cp-foreground, #e6e6ee);
+  border: 1px solid var(--cp-border);
+  padding: 12px;
+  border-radius: 6px;
+  position: relative;
+}
+
+.cp-hex__toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.cp-hex__title {
+  font-size: 13px;
+  color: var(--cp-magenta);
+  font-weight: 600;
+}
+
+.cp-hex__copy {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--cp-cyan);
+  padding: 6px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cp-hex__table {
+  display: block;
+  overflow: auto;
+  max-height: 320px;
+  padding: 6px 4px 0 4px;
+}
+
+.cp-hex__line {
+  display: grid;
+  grid-template-columns: 120px 1fr 220px;
+  gap: 12px;
+  padding: 4px 6px;
+  align-items: center;
+  border-bottom: 1px dashed rgba(255,255,255,0.02);
+}
+
+.cp-hex__offset {
+  color: var(--cp-magenta);
+  font-size: 12px;
+}
+
+.cp-hex__bytes {
+  color: var(--cp-green);
+  letter-spacing: 0.08em;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.cp-hex__ascii {
+  color: var(--cp-amber);
+  font-family: inherit;
+  white-space: pre;
+  font-size: 13px;
+}
+
+.cp-hex__line:hover { background: rgba(255,255,255,0.01); }

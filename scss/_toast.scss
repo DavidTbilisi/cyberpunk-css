@@ -1,0 +1,37 @@
+// --------------------------------------------------------
+// TOAST NOTIFICATIONS
+// --------------------------------------------------------
+
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'fonts' as *;
+
+.cp-toast-stack {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 930;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cp-toast {
+  padding: 12px 16px;
+  font-family: $font-body;
+  font-size: 20px;
+  min-width: 220px;
+  background: rgba(0,0,0,0.7);
+  @include retro-border($cp-blue);
+  /* toast entrance animation removed */
+}
+
+.cp-toast--success { @include retro-border($cp-green); }
+.cp-toast--error   { @include retro-border($cp-amber); }
+
+.cp-toast__close {
+  background: transparent;
+  border: none;
+  color: $cp-magenta;
+  cursor: pointer;
+}

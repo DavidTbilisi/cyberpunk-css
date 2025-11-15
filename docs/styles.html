@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>RETROPUNK — Styles & Variables</title>
+  <link rel="stylesheet" href="../cyberpunk.css">
+  <style>body{font-family:system-ui,Segoe UI,Roboto,Arial;background:#05050a;color:#e6e6ee;padding:28px}nav{margin-bottom:18px}code{background:#06060b;padding:2px 6px;border-radius:4px}</style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Overview</a> ·
+    <a href="components.html">Components</a> ·
+    <a href="styles.html">Styles & Variables</a> ·
+    <a href="js-api.html">JS API</a>
+  </nav>
+  <main>
+    <h1>Styles & Variables</h1>
+
+    <section>
+      <h2>Color palette</h2>
+      <p>SCSS variables are defined in <code>_variables.scss</code>. At runtime we expose CSS custom properties in <code>_base.scss</code> as <code>--cp-green</code>, <code>--cp-cyan</code>, <code>--cp-magenta</code>, <code>--cp-purple</code>, <code>--cp-blue</code>, <code>--cp-amber</code>.</p>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0;">
+        <div style="background:var(--cp-green);padding:12px;border-radius:6px;color:#000;font-weight:700;text-align:center">GREEN<br><small>var(--cp-green)</small></div>
+        <div style="background:var(--cp-cyan);padding:12px;border-radius:6px;color:#000;font-weight:700;text-align:center">CYAN<br><small>var(--cp-cyan)</small></div>
+        <div style="background:var(--cp-magenta);padding:12px;border-radius:6px;color:#000;font-weight:700;text-align:center">MAGENTA<br><small>var(--cp-magenta)</small></div>
+        <div style="background:var(--cp-purple);padding:12px;border-radius:6px;color:#fff;font-weight:700;text-align:center">PURPLE<br><small>var(--cp-purple)</small></div>
+        <div style="background:var(--cp-blue);padding:12px;border-radius:6px;color:#fff;font-weight:700;text-align:center">BLUE<br><small>var(--cp-blue)</small></div>
+        <div style="background:var(--cp-amber);padding:12px;border-radius:6px;color:#000;font-weight:700;text-align:center">AMBER<br><small>var(--cp-amber)</small></div>
+      </div>
+
+      <p>Example usage in HTML:</p>
+      <pre>&lt;div style="background:var(--cp-magenta);padding:12px;border-radius:6px;"&gt;MAGENTA&lt;/div&gt;</pre>
+    </section>
+
+    <section>
+      <h2>Mixins</h2>
+      <p>Useful mixins:</p>
+      <ul>
+        <li><code>@include retro-border($color)</code> — neon border + inset glow</li>
+        <li><code>@include retro-glow-text($color)</code> — text glow and shadow</li>
+        <li><code>@include grid-bg</code> — subtle grid background</li>
+      </ul>
+
+      <h3>Example: panel with mixins</h3>
+      <pre>@include retro-border($cp-purple);
+@include grid-bg;
+background: rgba(0,0,0,0.5);
+padding: 16px;</pre>
+    </section>
+
+    <section>
+      <h2>Build</h2>
+      <p>Compile SCSS to CSS (Dart Sass recommended):</p>
+      <pre>npx sass cyberpunk.scss cyberpunk.css --style=compressed</pre>
+    </section>
+  </main>
+</body>
+</html>

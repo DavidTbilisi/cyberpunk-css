@@ -1,0 +1,92 @@
+// --------------------------------------------------------
+// TERMINAL / CONSOLE STYLES
+// --------------------------------------------------------
+
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'fonts' as *;
+
+/* Terminal wrapper */
+.cp-terminal {
+  font-family: $font-body;
+  color: $cp-green;
+  background: rgba(0,0,0,0.68);
+  border: 2px solid $cp-blue;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 0 2px rgba($cp-blue, 0.14), inset 0 0 12px rgba($cp-blue, 0.04);
+  display: block;
+}
+
+/* Header with controls */
+.cp-terminal__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: rgba(0,0,0,0.55);
+  border-bottom: 1px solid rgba($cp-blue, 0.06);
+}
+
+.cp-terminal__controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.cp-terminal__controls .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba($cp-magenta, 0.06);
+}
+.cp-terminal__controls .dot--close { background: $cp-amber; }
+.cp-terminal__controls .dot--min  { background: $cp-magenta; }
+.cp-terminal__controls .dot--max  { background: $cp-green; }
+
+.cp-terminal__title {
+  font-family: $font-sci;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: $cp-cyan;
+}
+
+/* Body / content */
+.cp-terminal__body {
+  padding: 14px;
+  font-family: $font-body;
+  font-size: 14px;
+  line-height: 1.5;
+  background: linear-gradient(90deg, rgba($cp-magenta, .02) 1px, transparent 1px), linear-gradient(rgba($cp-magenta, .02) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.cp-terminal__line {
+  display: block;
+  color: $cp-green;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.cp-terminal__prompt {
+  color: $cp-cyan;
+  margin-right: 8px;
+  font-weight: 700;
+}
+
+.cp-terminal__caret {
+  display: inline-block;
+  width: 8px;
+  height: 14px;
+  background: $cp-cyan;
+  vertical-align: middle;
+  margin-left: 8px;
+}
+
+/* Compact variant */
+.cp-terminal--compact {
+  border-radius: 6px;
+}
+
+/* small helper for faded output */
+.cp-terminal__muted { color: $cp-muted; }

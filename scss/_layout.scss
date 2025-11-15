@@ -1,0 +1,21 @@
+// --------------------------------------------------------
+// LAYOUT HELPERS
+// --------------------------------------------------------
+
+.cp-hstack {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.cp-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cp-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
