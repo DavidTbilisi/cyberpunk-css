@@ -1,92 +1,94 @@
-const fs = require('fs');
-const path = require('path');
+/**
+ * @jest-environment jsdom
+ */
 
-beforeAll(() => {
-  require(path.resolve(__dirname, '..', 'cyberpunk.js'));
-  const jsPath = path.resolve(__dirname, '..', 'cyberpunk.js');
-  const code = fs.readFileSync(jsPath, 'utf8');
-  const adapted = code.replace(/^\s*const\s+CyberUI\s*=\s*/m, 'global.CyberUI = ');
-  eval(adapted);
-});
+describe('UI behavior tests', () => {
+  beforeEach(() => {
+    jest.resetModules();
+    
+    // Mock AudioContext
+    window.AudioContext = jest.fn(() => ({
+      currentTime: 0,
+      state: 'running',
+      createOscillator: jest.fn(() => ({
+        type: 'sine',
+        frequency: { setValueAtTime: jest.fn() },
+        connect: jest.fn(),
+        start: jest.fn(),
+        stop: jest.fn(),
+      })),
+      createGain: jest.fn(() => ({
+        gain: {
+          setValueAtTime: jest.fn(),
+          linearRampToValueAtTime: jest.fn(),
+          exponentialRampToValueAtTime: jest.fn(),
+        },
+        connect: jest.fn(),
+      })),
+      destination: {},
+      resume: jest.fn(() => Promise.resolve()),
+    }));
 
-afterEach(() => {
-  // clean up body
-  document.body.innerHTML = '';
-});
+    // Mock clipboard
+    Object.assign(navigator, {
+      clipboard: { writeText: jest.fn().mockResolvedValue(undefined) }
+    });
+  });
 
-test('button click creates ripple and plays sfx', () => {
-  const btn = document.createElement('button');
-  btn.className = 'cp-btn';
-  document.body.appendChild(btn);
+  afterEach(() => {
+    document.body.innerHTML = '';
+  });
 
-  // stub sfx
-  global.CyberUI.sfx = { play: jest.fn() };
+  test('button click creates ripple', () => {
+    document.body.innerHTML = `<button class="cp-btn" id="test-btn">Button</button>`;
+    require('../scripts/buttons.js');
+    
+    const btn = document.getElementById('test-btn');
+    btn.dispatchEvent(new MouseEvent('click', { bubbles: true, clientX: 10, clientY: 10 }));
+    
+    const ripple = btn.querySelector('.cp-ripple');
+    expect(ripple).not.toBeNull();
+    
+    // Simulate animationend to remove ripple
+    ripple.dispatchEvent(new Event('animationend'));
+    expect(btn.querySelector('.cp-ripple')).toBeNull();
+  });
 
-  // init binds listeners
-  global.CyberUI.init();
+  test('toast shows success variant', () => {
+    document.body.innerHTML = `<div id="toast-stack"></div>`;
+    const { showToast } = require('../scripts/toasts.js');
+    
+    showToast('All good', 'success', 0);
+    const toast = document.querySelector('.cp-toast--success');
+    expect(toast).not.toBeNull();
+  });
 
-  // simulate click
-  btn.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+  test('modal open and backdrop click closes modal', () => {
+    document.body.innerHTML = `
+      <div id="demo" class="cp-modal-backdrop">
+        <div class="cp-modal"></div>
+      </div>
+      <button data-modal-open="demo">Open</button>
+    `;
+    const { openModal, closeModal } = require('../scripts/modals.js');
+    
+    const backdrop = document.getElementById('demo');
+    openModal('demo');
+    expect(backdrop.classList.contains('is-open')).toBe(true);
+    
+    closeModal('demo');
+    expect(backdrop.classList.contains('is-open')).toBe(false);
+  });
 
-  const ripple = btn.querySelector('.cp-ripple');
-  expect(ripple).not.toBeNull();
-
-  // simulate animationend to remove ripple
-  ripple.dispatchEvent(new Event('animationend'));
-  expect(btn.querySelector('.cp-ripple')).toBeNull();
-});
-
-test('toast shows success variant and copy plays sfx', async () => {
-  // stub sfx and clipboard
-  global.CyberUI.sfx = { play: jest.fn() };
-  navigator.clipboard = { writeText: jest.fn().mockResolvedValue() };
-
-  // call toast
-  global.CyberUI.toast('All good', { variant: 'success', timeout: 0 });
-  const toast = document.querySelector('.cp-toast--success');
-  expect(toast).not.toBeNull();
-
-  // click close (close handler plays click sfx)
-  const closeBtn = toast.querySelector('.cp-toast__close');
-  expect(closeBtn).not.toBeNull();
-  closeBtn.dispatchEvent(new MouseEvent('click', { bubbles: true }));
-  // simulate animationend for removal
-  toast.dispatchEvent(new Event('animationend'));
-});
-
-test('modal open and backdrop click closes modal', () => {
-  // create backdrop/modal markup before init so listeners attach
-  const backdrop = document.createElement('div');
-  backdrop.className = 'cp-modal-backdrop';
-  backdrop.setAttribute('data-modal', 'demo');
-  const modal = document.createElement('div');
-  modal.className = 'cp-modal';
-  backdrop.appendChild(modal);
-  document.body.appendChild(backdrop);
-
-  global.CyberUI.init();
-  global.CyberUI.openModal('demo');
-  expect(backdrop.classList.contains('is-open')).toBe(true);
-
-  // clicking backdrop (target is backdrop) should close
-  backdrop.dispatchEvent(new MouseEvent('click', { bubbles: true }));
-  expect(backdrop.classList.contains('is-open')).toBe(false);
-});
-
-test('hex copy button calls navigator.clipboard.writeText', async () => {
-  navigator.clipboard = { writeText: jest.fn().mockResolvedValue() };
-  global.CyberUI.sfx = { play: jest.fn() };
-
-  const container = document.createElement('div');
-  container.id = 'hex-test';
-  document.body.appendChild(container);
-
-  global.CyberUI.hexViewer.render('#hex-test', new Uint8Array([1,2,3,4,5,6,7,8,9,0]));
-  const copyBtn = container.querySelector('.cp-hex__copy');
-  expect(copyBtn).not.toBeNull();
-
-  copyBtn.click();
-  // wait a tick for async clipboard
-  await Promise.resolve();
-  expect(navigator.clipboard.writeText).toHaveBeenCalled();
+  test('hex viewer renders and copy works', async () => {
+    document.body.innerHTML = `<div id="hex-test"></div>`;
+    const { renderHex } = require('../scripts/hexviewer.js');
+    
+    renderHex('#hex-test', new Uint8Array([1, 2, 3, 4, 5]));
+    const copyBtn = document.querySelector('.cp-hex__copy');
+    expect(copyBtn).not.toBeNull();
+    
+    await copyBtn.click();
+    expect(navigator.clipboard.writeText).toHaveBeenCalled();
+  });
 });

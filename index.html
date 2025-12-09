@@ -76,10 +76,10 @@
       </p>
 
       <div class="cp-hstack" style="margin-top: 40px; flex-wrap: wrap; gap: 20px;">
-        <button class="cp-btn" id="toast-success-btn">Success Toast</button>
-        <button class="cp-btn" data-variant="danger" id="toast-error-btn">Error Toast</button>
-        <button class="cp-btn" id="open-modal">Open Modal</button>
-        <button class="cp-btn" id="scroll-demo">Scroll Effects</button>
+        <button class="cp-btn" data-toast data-toast-message="Mission completed successfully!" data-toast-variant="success">Success Toast</button>
+        <button class="cp-btn" data-variant="danger" data-toast data-toast-message="System malfunction detected!" data-toast-variant="error">Error Toast</button>
+        <button class="cp-btn" data-modal-open="demo-modal">Open Modal</button>
+        <button class="cp-btn" data-scroll-to="800">Scroll Effects</button>
       </div>
     </div>
   </section>
@@ -158,9 +158,9 @@
         <div>
           <h4 class="cp-subtitle">Interactive States</h4>
           <div class="cp-hstack" style="flex-wrap: wrap; margin-top: 20px;">
-            <button class="cp-btn" onclick="this.textContent = 'CLICKED!'">Click Me</button>
-            <button class="cp-btn" onmouseover="this.textContent = 'HOVERING'" onmouseout="this.textContent = 'Hover Test'">Hover Test</button>
-            <button class="cp-btn" onmousedown="this.style.transform = 'scale(0.95)'" onmouseup="this.style.transform = 'scale(1)'">Press Effect</button>
+            <button class="cp-btn" data-click-text="CLICKED!">Click Me</button>
+            <button class="cp-btn" data-hover-text="HOVERING" data-default-text="Hover Test">Hover Test</button>
+            <button class="cp-btn" data-press-scale="0.95">Press Effect</button>
           </div>
         </div>
       </div>
@@ -340,30 +340,30 @@
       <div class="demo-grid">
         <div class="cp-stack">
           <h4 class="cp-title">Notifications</h4>
-          <button class="cp-btn" onclick="showToast('Mission accomplished!', 'success')">Success Toast</button>
-          <button class="cp-btn" onclick="showToast('System error detected!', 'error')">Error Toast</button>
-          <button class="cp-btn" onclick="showToast('Data transfer complete.', 'default')">Info Toast</button>
+          <button class="cp-btn" data-toast data-toast-message="Mission accomplished!" data-toast-variant="success">Success Toast</button>
+          <button class="cp-btn" data-toast data-toast-message="System error detected!" data-toast-variant="error">Error Toast</button>
+          <button class="cp-btn" data-toast data-toast-message="Data transfer complete.">Info Toast</button>
         </div>
 
         <div class="cp-stack">
           <h4 class="cp-title">Modal Dialog</h4>
-          <button class="cp-btn" onclick="openModal()">Open System Modal</button>
-          <button class="cp-btn" onclick="openConfirmModal()">Confirm Dialog</button>
+          <button class="cp-btn" data-modal-open="demo-modal">Open System Modal</button>
+          <button class="cp-btn" data-modal-open="confirm-modal">Confirm Dialog</button>
         </div>
 
         <div class="cp-stack">
           <h4 class="cp-title">Navbar Effects</h4>
-          <button class="cp-btn" onclick="scrollToSection()">Trigger Navbar Glow</button>
-          <button class="cp-btn" onclick="resetNavbar()">Reset Navbar</button>
+          <button class="cp-btn" data-scroll-to="800">Trigger Navbar Glow</button>
+          <button class="cp-btn" data-scroll-to="0">Reset Navbar</button>
         </div>
         <div class="cp-stack">
           <h4 class="cp-title">Hex Viewer</h4>
-          <button class="cp-btn" id="load-demo-hex">Load Hex Viewer</button>
+          <button class="cp-btn" data-hex-load data-hex-target="#demo-hex">Load Hex Viewer</button>
           <div id="demo-hex" style="margin-top:12px; width:100%; max-width:680px;"></div>
         </div>
         <div class="cp-stack">
           <h4 class="cp-title">Network Graph</h4>
-          <button class="cp-btn" id="load-demo-netgraph">Load Network Graph</button>
+          <button class="cp-btn" data-netgraph-load data-netgraph-target="#demo-netgraph">Load Network Graph</button>
           <div id="demo-netgraph" style="margin-top:12px; width:100%; max-width:680px;"></div>
         </div>
       </div>
@@ -377,7 +377,7 @@
     <div class="cp-modal">
       <div class="cp-hstack" style="justify-content: space-between; margin-bottom: 20px;">
         <h3 class="cp-title">System Alert</h3>
-        <button class="cp-modal__close" onclick="closeModal()">&times;</button>
+        <button class="cp-modal__close" data-modal-close="demo-modal">&times;</button>
       </div>
       
       <div style="margin-bottom: 20px;">
@@ -386,7 +386,7 @@
       </div>
       
       <div class="cp-hstack" style="justify-content: flex-end;">
-        <button class="cp-btn" onclick="closeModal()">Close</button>
+        <button class="cp-btn" data-modal-close="demo-modal">Close</button>
       </div>
     </div>
   </div>
@@ -395,7 +395,7 @@
     <div class="cp-modal">
       <div class="cp-hstack" style="justify-content: space-between; margin-bottom: 20px;">
         <h3 class="cp-title">Confirm Action</h3>
-        <button class="cp-modal__close" onclick="closeConfirmModal()">&times;</button>
+        <button class="cp-modal__close" data-modal-close="confirm-modal">&times;</button>
       </div>
       
       <div style="margin-bottom: 30px;">
@@ -404,8 +404,8 @@
       </div>
       
       <div class="cp-hstack" style="justify-content: flex-end; gap: 15px;">
-        <button class="cp-btn" onclick="closeConfirmModal()">Cancel</button>
-        <button class="cp-btn" data-variant="danger" onclick="confirmAction()">Confirm</button>
+        <button class="cp-btn" data-modal-close="confirm-modal">Cancel</button>
+        <button class="cp-btn" data-variant="danger" data-modal-close="confirm-modal" data-toast data-toast-message="System shutdown initiated..." data-toast-variant="error">Confirm</button>
       </div>
     </div>
   </div>
@@ -413,192 +413,8 @@
   <!-- Toast Stack Container -->
   <div class="cp-toast-stack" id="toast-stack"></div>
 
-
-
-  <!-- ========================= -->
-  <!-- COMPREHENSIVE DEMO SCRIPTS -->
-  <!-- ========================= -->
-  <script src="cyberpunk.js"></script>
-  <script>
-    let toastCounter = 0;
-
-    // Toast System
-    function showToast(message, variant = 'default') {
-      const toastStack = document.getElementById('toast-stack');
-      const toast = document.createElement('div');
-      toast.className = `cp-toast ${variant !== 'default' ? `cp-toast--${variant}` : ''}`;
-      toast.innerHTML = `
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-          <span>${message}</span>
-          <button class="cp-toast__close" onclick="removeToast(this)">&times;</button>
-        </div>
-      `;
-      toastStack.appendChild(toast);
-      
-      // Auto remove after 4 seconds
-      setTimeout(() => {
-        if (toast.parentNode) {
-          toast.remove();
-        }
-      }, 4000);
-    }
-
-    function removeToast(closeBtn) {
-      closeBtn.closest('.cp-toast').remove();
-    }
-
-    // Modal System
-    function openModal() {
-      document.getElementById('demo-modal').classList.add('is-open');
-    }
-
-    function closeModal() {
-      document.getElementById('demo-modal').classList.remove('is-open');
-    }
-
-    function openConfirmModal() {
-      document.getElementById('confirm-modal').classList.add('is-open');
-    }
-
-    function closeConfirmModal() {
-      document.getElementById('confirm-modal').classList.remove('is-open');
-    }
-
-    function confirmAction() {
-      showToast('System shutdown initiated...', 'error');
-      closeConfirmModal();
-    }
-
-    // Navbar Scroll Effects
-    function scrollToSection() {
-      window.scrollTo({ top: 800, behavior: 'smooth' });
-    }
-
-    function resetNavbar() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    // Navbar scroll detection for glow effect
-    window.addEventListener('scroll', () => {
-      const navbar = document.getElementById('main-navbar');
-      if (window.scrollY > 50) {
-        navbar.classList.add('is-scrolled');
-      } else {
-        navbar.classList.remove('is-scrolled');
-      }
-    });
-
-    // Button event listeners for hero section
-    document.getElementById('toast-success-btn').onclick = () => {
-      showToast('Mission completed successfully!', 'success');
-    };
-
-    document.getElementById('toast-error-btn').onclick = () => {
-      showToast('System malfunction detected!', 'error');
-    };
-
-    document.getElementById('open-modal').onclick = openModal;
-
-    document.getElementById('scroll-demo').onclick = () => {
-      scrollToSection();
-      setTimeout(() => {
-        showToast('Navbar glow effect activated!', 'success');
-      }, 500);
-    };
-
-    // Keyboard shortcuts
-    document.addEventListener('keydown', (e) => {
-      // ESC to close modals
-      if (e.key === 'Escape') {
-        closeModal();
-        closeConfirmModal();
-      }
-      
-      // Ctrl/Cmd + Enter for quick success toast
-      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-        showToast('Quick action executed!', 'success');
-      }
-    });
-
-    // Initialize with welcome message
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        showToast('RETROPUNK UI Framework loaded successfully!', 'success');
-      }, 1000);
-    });
-
-    // Demo attachments: attach after DOM ready so earlier script errors don't block wiring
-    document.addEventListener('DOMContentLoaded', () => {
-      try {
-        const hexBtn = document.getElementById('load-demo-hex');
-        if (hexBtn) hexBtn.addEventListener('click', () => {
-          const arr = new Uint8Array([0,1,2,3,4,10,13,32,65,66,67,68,69,70,255,128,0,99,100,101]);
-          if (window.CyberUI && CyberUI.hexViewer) CyberUI.hexViewer.render('#demo-hex', arr);
-        });
-
-        const netBtn = document.getElementById('load-demo-netgraph');
-        if (netBtn) netBtn.addEventListener('click', () => {
-          const topology = {
-            nodes: [
-              { id: 'gw', label: 'Gateway', type: 'router' },
-              { id: 'n1', label: 'Node 1', type: 'node' },
-              { id: 'n2', label: 'Node 2', type: 'node' },
-              { id: 'db', label: 'DB Server', type: 'server' }
-            ],
-            edges: [
-              { source: 'gw', target: 'n1' },
-              { source: 'gw', target: 'n2' },
-              { source: 'gw', target: 'db' },
-              { source: 'n1', target: 'db' }
-            ]
-          };
-          if (window.CyberUI && CyberUI.netGraph) CyberUI.netGraph.render('#demo-netgraph', topology, { emitInterval: 1000 });
-        });
-      } catch (e) {
-        console.warn('Demo wiring failed', e);
-      }
-    });
-
-    // Click outside modal to close
-    document.addEventListener('click', (e) => {
-      if (e.target.classList.contains('cp-modal-backdrop')) {
-        closeModal();
-        closeConfirmModal();
-      }
-    });
-
-    // Simulate some dynamic content updates
-    setInterval(() => {
-      const randomCPU = Math.floor(Math.random() * 100);
-      const cpuElements = document.querySelectorAll('[data-cpu]');
-      cpuElements.forEach(el => {
-        el.textContent = `${randomCPU}%`;
-        el.style.color = randomCPU > 80 ? 'var(--cp-amber)' : 'var(--cp-green)';
-      });
-    }, 3000);
-
-    console.log(`
-    ╔══════════════════════════════════════════════════════════════════════╗
-    ║                    RETROPUNK UI FRAMEWORK 1984                       ║
-    ║                          Demo Loaded                                 ║
-    ╠══════════════════════════════════════════════════════════════════════╣
-    ║  Keyboard Shortcuts:                                                 ║
-    ║  • ESC: Close modals                                                 ║
-    ║  • Ctrl+Enter: Quick success toast                                   ║
-    ║                                                                      ║
-    ║  Available Components:                                               ║
-    ║  • Typography & Glitch Effects                                       ║
-    ║  • Interactive Buttons                                               ║
-    ║  • Cards & Panels                                                    ║
-    ║  • Form Components                                                   ║
-    ║  • Modal Dialogs                                                     ║
-    ║  • Toast Notifications                                               ║
-    ║  • CRT Effects & Scanlines                                           ║
-    ║  • Navbar with Scroll Glow                                           ║
-    ║  • Layout Helpers                                                    ║
-    ╚══════════════════════════════════════════════════════════════════════╝
-    `);
-  </script>
+  <!-- Only scripts -->
+  <script type="module" src="scripts/init.js"></script>
 
 </body>
 </html>
