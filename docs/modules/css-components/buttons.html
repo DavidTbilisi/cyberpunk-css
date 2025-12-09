@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CSS — Buttons</title>
+  <link rel="stylesheet" href="../../../cyberpunk.css">
+  <style>
+    body{font-family:system-ui, -apple-system, "Segoe UI", Roboto, Arial; background:#071018; color:#e6eef8; padding:28px}
+    .container{max-width:900px;margin:0 auto}
+    h1{color:#ffd86b}
+    .demo{margin:16px 0}
+    .cp-btn{background:linear-gradient(90deg,#0f1724,#122633);color:#bfe9ff;padding:10px 14px;border-radius:6px;border:1px solid rgba(255,255,255,0.03);cursor:pointer}
+    .muted{color:#9fb4c9}
+    pre{background:#001119;padding:12px;border-radius:6px}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../css.html">← Back to CSS index</a>
+    <h1>Buttons</h1>
+    <p class="muted">Class: <code>.cp-btn</code> — used across the UI for interactive buttons.</p>
+
+    <h2>Visual examples</h2>
+    <div class="demo">
+      <button class="cp-btn">Primary</button>
+      <button class="cp-btn" data-click-text="Sent">Send</button>
+      <button class="cp-btn" data-press-scale="0.95">Press</button>
+    </div>
+
+    <h2>Markup</h2>
+    <pre><code>&lt;button class="cp-btn"&gt;Primary&lt;/button&gt;
+&lt;button class="cp-btn" data-click-text="Sent"&gt;Send&lt;/button&gt;
+&lt;button class="cp-btn" data-press-scale="0.95"&gt;Press&lt;/button&gt;
+</code></pre>
+
+    <h2>Behavior notes</h2>
+    <ul>
+      <li>Ripples are added by <code>scripts/buttons.js</code> on click.</li>
+      <li><code>data-click-text</code> will temporarily change the button's text.</li>
+      <li><code>data-press-scale</code> reduces transform scale during press for tactile feedback.</li>
+    </ul>
+
+    <h2>Accessibility</h2>
+    <p>Keep button contents simple text for reliable announcement by screen readers. If using icons, include an accessible label via <code>aria-label</code>.</p>
+
+    <div style="margin-top:18px;color:#9fb4c9">Last updated: December 9, 2025</div>
+  </div>
+  <script type="module">
+    // Initialize site scripts so data-attribute examples work inside docs
+    import('../../scripts/init.js');
+  </script>
+</body>
+</html>

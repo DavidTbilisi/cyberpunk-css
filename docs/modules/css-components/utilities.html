@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CSS — Utilities</title>
+  <link rel="stylesheet" href="../../../cyberpunk.css">
+  <style>
+    body{font-family:system-ui, -apple-system, "Segoe UI", Roboto, Arial; background:#071018; color:#e6eef8; padding:28px}
+    .container{max-width:900px;margin:0 auto}
+    h1{color:#ffd86b}
+    pre{background:#001119;padding:12px;border-radius:6px}
+    table{width:100%;border-collapse:collapse;margin-top:12px}
+    th,td{padding:8px;border-bottom:1px dashed rgba(255,255,255,0.03);text-align:left}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../css.html">← Back to CSS index</a>
+    <h1>Utilities</h1>
+    <p>Common small helpers used across the project.</p>
+
+    <table>
+      <thead><tr><th>Class</th><th>Effect</th></tr></thead>
+      <tbody>
+        <tr><td><code>.visually-hidden</code></td><td>Hides visually but remains accessible to screen readers.</td></tr>
+        <tr><td><code>.cp-grid</code></td><td>Responsive grid wrapper.</td></tr>
+        <tr><td><code>.muted</code></td><td>Lower contrast text color for meta information.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Examples</h2>
+    <pre><code>&lt;span class="visually-hidden"&gt;Only for screen readers&lt;/span&gt;
+&lt;div class="cp-grid"&gt;…&lt;/div&gt;
+</code></pre>
+
+    <div style="margin-top:18px;color:#9fb4c9">Last updated: December 9, 2025</div>
+  </div>
+</body>
+</html>

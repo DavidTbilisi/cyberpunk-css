@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CSS — Window</title>
+  <link rel="stylesheet" href="../../../cyberpunk.css">
+  <style>
+    body{font-family:system-ui, -apple-system, "Segoe UI", Roboto, Arial; background:#071018; color:#e6eef8; padding:28px}
+    .container{max-width:900px;margin:0 auto}
+    h1{color:#ffd86b}
+    .window{background:#071921;border-radius:6px;border:1px solid rgba(255,255,255,0.03);overflow:hidden}
+    .window .titlebar{display:flex;align-items:center;gap:8px;padding:8px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent)}
+    .window .content{padding:12px}
+    pre{background:#001119;padding:12px;border-radius:6px}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../css.html">← Back to CSS index</a>
+    <h1>Window</h1>
+    <p>Class: <code>.window</code> — retro window chrome used for demo panels.</p>
+
+    <h2>Example</h2>
+    <div class="window">
+      <div class="titlebar"><span class="controls">● ● ●</span><strong>Panel</strong></div>
+      <div class="content">Content inside window panel.</div>
+    </div>
+
+    <h2>Notes</h2>
+    <ul>
+      <li>Titlebar controls are decorative by default — add keyboard or drag handlers in JS if needed.</li>
+    </ul>
+
+    <div style="margin-top:18px;color:#9fb4c9">Last updated: December 9, 2025</div>
+  </div>
+</body>
+</html>

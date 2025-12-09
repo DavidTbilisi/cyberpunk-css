@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Toasts Module — cyberpunk-css</title>
+  <link rel="stylesheet" href="../../cyberpunk.css">
+  <style>
+    body{font-family:system-ui, -apple-system, "Segoe UI", Roboto, Arial; background:#071018; color:#e6eef8; padding:28px}
+    .container{max-width:900px;margin:0 auto}
+    h1{color:#ffd86b}
+    pre{background:#001119;padding:12px;border-radius:6px}
+    a{color:#7ee7ff}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../../index.html">← Back to demo</a>
+    <h1>Toasts Module</h1>
+    <p>File: <code>scripts/toasts.js</code></p>
+
+    <h2>API</h2>
+    <ul>
+      <li><strong>showToast(message, options)</strong> — create and display a transient toast. Options: <code>duration</code> (ms), <code>type</code> (info/warn/success).</li>
+      <li><strong>createToastElement(message, options)</strong> — returns a DOM element without auto-show.</li>
+    </ul>
+
+    <h2>Usage</h2>
+    <pre><code>import { showToast } from './scripts/toasts.js';
+showToast('Saved', { duration: 2000, type: 'success' });
+</code></pre>
+
+    <h2>Wiring</h2>
+    <p>Elements with <code>data-toast</code> will trigger toasts; example:</p>
+    <pre><code>&lt;button data-toast="Download started"&gt;Download&lt;/button&gt;
+</code></pre>
+
+    <h2>Implementation notes</h2>
+    <ul>
+      <li>Toasts are appended to a container element created by the module and removed after a timeout.</li>
+      <li>Module uses CSS transitions; tests mock timers where appropriate.</li>
+    </ul>
+
+    <h2>Tests</h2>
+    <p>See <code>tests/toasts.test.js</code> — tests cover element creation, display timing, and removal.</p>
+
+    <p style="font-size:0.95rem;color:#9fb4c9">Last updated: December 9, 2025</p>
+  </div>
+</body>
+</html>

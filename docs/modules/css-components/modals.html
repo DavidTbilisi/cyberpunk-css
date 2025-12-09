@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CSS — Modals</title>
+  <link rel="stylesheet" href="../../../cyberpunk.css">
+  <style>
+    body{font-family:system-ui, -apple-system, "Segoe UI", Roboto, Arial; background:#071018; color:#e6eef8; padding:28px}
+    .container{max-width:900px;margin:0 auto}
+    h1{color:#ffd86b}
+    .cp-modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;visibility:hidden}
+    .cp-modal.is-open{visibility:visible}
+    .cp-modal .dialog{background:#071820;border-radius:8px;padding:18px;min-width:320px}
+    pre{background:#001119;padding:12px;border-radius:6px}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../css.html">← Back to CSS index</a>
+    <h1>Modals</h1>
+    <p>Class: <code>.cp-modal</code> — toggled with <code>.is-open</code>.</p>
+
+    <h2>Markup</h2>
+    <pre><code>&lt;div id="confirm" class="cp-modal"&gt;
+  &lt;div class="dialog" role="dialog" aria-modal="true"&gt;
+    &lt;h2&gt;Confirm&lt;/h2&gt;
+    &lt;button data-modal-close&gt;Cancel&lt;/button&gt;
+    &lt;button data-modal-close&gt;OK&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+
+    <h2>Behavior notes</h2>
+    <ul>
+      <li>Backdrop click and Escape should close modals (handled in JS).</li>
+      <li>Focus should be trapped inside the modal when open; ensure meaningful focus targets inside the dialog.</li>
+    </ul>
+
+    <div style="margin-top:18px;color:#9fb4c9">Last updated: December 9, 2025</div>
+  </div>
+  <script type="module">
+    // wire modal open/close handlers in the docs page
+    import('../../scripts/init.js');
+  </script>
+</body>
+</html>

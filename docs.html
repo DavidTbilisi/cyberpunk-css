@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Documentation — cyberpunk-css</title>
+  <link rel="stylesheet" href="cyberpunk.css">
+  <style>
+    :root{--bg:#071018;--accent:#7ee7ff;--muted:#9fb4c9;--card:#001119}
+    body{font-family:system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background:var(--bg); color:#e6eef8; margin:0;padding:36px}
+    .wrap{max-width:980px;margin:0 auto}
+    h1{color:#ffd86b;margin:0 0 8px}
+    a{color:var(--accent)}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:18px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent); border:1px solid rgba(255,255,255,0.03); padding:14px;border-radius:8px}
+    .meta{color:var(--muted);font-size:0.95rem}
+    .footer{margin-top:28px;color:var(--muted);font-size:0.9rem}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a href="index.html">← Back to demo</a>
+    <h1>cyberpunk-css — Docs</h1>
+    <p class="meta">Quick index for module documentation (HTML pages)</p>
+
+    <div class="grid" role="list">
+      <div class="card" role="listitem">
+        <strong>Buttons</strong>
+        <div class="meta">Interactive button helpers</div>
+        <div style="margin-top:8px"><a href="docs/modules/buttons.html">Open Buttons docs →</a></div>
+      </div>
+
+      <div class="card" role="listitem">
+        <strong>Navbar</strong>
+        <div class="meta">Scroll-aware navbar behavior</div>
+        <div style="margin-top:8px"><a href="docs/modules/navbar.html">Open Navbar docs →</a></div>
+      </div>
+
+      <div class="card" role="listitem">
+        <strong>Toasts</strong>
+        <div class="meta">Transient notification helpers</div>
+        <div style="margin-top:8px"><a href="docs/modules/toasts.html">Open Toasts docs →</a></div>
+      </div>
+
+      <div class="card" role="listitem">
+        <strong>Modals</strong>
+        <div class="meta">Accessible modal dialogs</div>
+        <div style="margin-top:8px"><a href="docs/modules/modals.html">Open Modals docs →</a></div>
+      </div>
+
+      <div class="card" role="listitem">
+        <strong>HexViewer</strong>
+        <div class="meta">Byte buffer hex + ASCII rendering</div>
+        <div style="margin-top:8px"><a href="docs/modules/hexviewer.html">Open HexViewer docs →</a></div>
+      </div>
+
+      <div class="card" role="listitem">
+        <strong>NetGraph</strong>
+        <div class="meta">SVG topology renderer + demo packets</div>
+        <div style="margin-top:8px"><a href="docs/modules/netgraph.html">Open NetGraph docs →</a></div>
+      </div>
+
+      <div class="card" role="listitem">
+        <strong>SFX</strong>
+        <div class="meta">Retro WebAudio SFX engine</div>
+        <div style="margin-top:8px"><a href="docs/modules/sfx.html">Open SFX docs →</a></div>
+      </div>
+
+      <div class="card" role="listitem">
+        <strong>CSS</strong>
+        <div class="meta">Classes, partials, and capabilities</div>
+        <div style="margin-top:8px"><a href="docs/modules/css.html">Open CSS docs →</a></div>
+      </div>
+
+    </div>
+
+    <div class="footer">
+      <div>Notes:</div>
+      <ul>
+        <li>These pages are static HTML docs generated during the refactor. Use relative links from the demo pages.</li>
+        <li>If you want a README entry instead, I can add `README.md` links to these pages.</li>
+      </ul>
+      <div style="margin-top:12px">Last updated: December 9, 2025</div>
+    </div>
+  </div>
+</body>
+</html>

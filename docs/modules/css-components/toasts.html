@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CSS — Toasts</title>
+  <link rel="stylesheet" href="../../../cyberpunk.css">
+  <style>
+    body{font-family:system-ui, -apple-system, "Segoe UI", Roboto, Arial; background:#071018; color:#e6eef8; padding:28px}
+    .container{max-width:900px;margin:0 auto}
+    h1{color:#ffd86b}
+    .cp-toast{background:#071e2a;border:1px solid rgba(255,255,255,0.03);padding:10px 12px;border-radius:8px}
+    pre{background:#001119;padding:12px;border-radius:6px}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../css.html">← Back to CSS index</a>
+    <h1>Toasts</h1>
+    <p>Class: <code>.cp-toast</code> — used by <code>scripts/toasts.js</code> to display transient notifications.</p>
+
+    <h2>Example markup</h2>
+    <pre><code>&lt;button data-toast="Downloaded"&gt;Download&lt;/button&gt;
+
+// JS will append a .cp-toast element to the toast container
+</code></pre>
+
+    <h2>Styling notes</h2>
+    <ul>
+      <li>Toasts use enter/exit transitions; match durations in CSS and JS when tuning.</li>
+      <li>Consider different background colors for success/warn types (modifier classes or attribute-driven styling).</li>
+    </ul>
+
+    <div style="margin-top:18px;color:#9fb4c9">Last updated: December 9, 2025</div>
+  </div>
+  <script type="module">
+    // import init to wire data-toast handlers used in the example
+    import('../../scripts/init.js');
+  </script>
+</body>
+</html>

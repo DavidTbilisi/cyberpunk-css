@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CSS — NetGraph</title>
+  <link rel="stylesheet" href="../../../cyberpunk.css">
+  <style>
+    body{font-family:system-ui, -apple-system, "Segoe UI", Roboto, Arial; background:#071018; color:#e6eef8; padding:28px}
+    .container{max-width:980px;margin:0 auto}
+    h1{color:#ffd86b}
+    .netgraph{display:block;width:100%;height:300px;background:linear-gradient(180deg,#051018,#071018)}
+    pre{background:#001119;padding:12px;border-radius:6px}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../css.html">← Back to CSS index</a>
+    <h1>NetGraph</h1>
+    <p>Class: <code>.netgraph</code> — SVG container styled for the demo.</p>
+
+    <h2>Usage</h2>
+    <pre><code>&lt;div class="netgraph" id="net"&gt;&lt;/div&gt;
+  &lt;script type="module"&gt;import { renderNetGraph } from '../../scripts/netgraph.js';&lt;/script&gt;
+</code></pre>
+
+    <h2>Styling notes</h2>
+    <ul>
+      <li>SVG elements inside the netgraph inherit stroke/fill from CSS variables — adjust variables in <code>_variables.scss</code>.</li>
+      <li>Animations are GPU-friendly transforms when possible.</li>
+    </ul>
+
+    <div style="margin-top:18px;color:#9fb4c9">Last updated: December 9, 2025</div>
+  </div>
+  <script type="module">
+    // Render a small demo topology inside the docs page
+    import('../../scripts/netgraph.js').then(mod => {
+      const el = document.getElementById('net');
+      if (!el || !mod.renderNetGraph) return;
+      const topology = {
+        nodes: [
+          { id: 'a', x: 80, y: 120, label: 'A' },
+          { id: 'b', x: 240, y: 60, label: 'B' },
+          { id: 'c', x: 400, y: 140, label: 'C' }
+        ],
+        links: [ { from: 'a', to: 'b' }, { from: 'b', to: 'c' }, { from: 'a', to: 'c' } ]
+      };
+      mod.renderNetGraph(el, topology, { packetInterval: 800 });
+    });
+  </script>
+</body>
+</html>

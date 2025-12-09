@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>HexViewer Module — cyberpunk-css</title>
+  <link rel="stylesheet" href="../../cyberpunk.css">
+  <style>
+    body{font-family:system-ui, -apple-system, "Segoe UI", Roboto, Arial; background:#071018; color:#e6eef8; padding:28px}
+    .container{max-width:900px;margin:0 auto}
+    h1{color:#ffd86b}
+    pre{background:#001119;padding:12px;border-radius:6px}
+    a{color:#7ee7ff}
+    table{width:100%;border-collapse:collapse}
+    td,th{padding:6px;border-bottom:1px dashed rgba(255,255,255,0.03)}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../../index.html">← Back to demo</a>
+    <h1>HexViewer Module</h1>
+    <p>File: <code>scripts/hexviewer.js</code></p>
+
+    <h2>What it does</h2>
+    <p>Renders a byte buffer into a readable hex + ASCII table and supplies a "copy hex" helper for easy clipboard copying.</p>
+
+    <h2>API</h2>
+    <ul>
+      <li><strong>renderHex(element, buffer)</strong> — render the given ArrayBuffer / Uint8Array / string into the provided container element.</li>
+      <li>Helpers exported for testing: <code>_toUint8Array()</code> and <code>_padHex()</code>.</li>
+    </ul>
+
+    <h2>Usage</h2>
+    <pre><code>import { renderHex } from './scripts/hexviewer.js';
+
+const el = document.querySelector('#hex');
+fetch('/some.bin')
+  .then(r =&gt; r.arrayBuffer())
+  .then(buf =&gt; renderHex(el, buf));
+</code></pre>
+
+    <h2>Clipboard note</h2>
+    <p>The module uses <code>navigator.clipboard.writeText()</code> for the "copy hex" action; in tests and older browsers this is mocked or polyfilled. When serving over insecure origins, clipboard writes may be blocked.</p>
+
+    <h2>Tests</h2>
+    <p>See <code>tests/hexviewer.test.js</code> — tests include TextEncoder/TextDecoder polyfill usage and clipboard mocking.</p>
+
+    <p style="font-size:0.95rem;color:#9fb4c9">Last updated: December 9, 2025</p>
+  </div>
+</body>
+</html>

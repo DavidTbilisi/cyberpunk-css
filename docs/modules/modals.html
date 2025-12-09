@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Modals Module — cyberpunk-css</title>
+  <link rel="stylesheet" href="../../cyberpunk.css">
+  <style>
+    body{font-family:system-ui, -apple-system, "Segoe UI", Roboto, Arial; background:#071018; color:#e6eef8; padding:28px}
+    .container{max-width:900px;margin:0 auto}
+    h1{color:#ffd86b}
+    pre{background:#001119;padding:12px;border-radius:6px}
+    a{color:#7ee7ff}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../../index.html">← Back to demo</a>
+    <h1>Modals Module</h1>
+    <p>File: <code>scripts/modals.js</code></p>
+
+    <h2>Purpose</h2>
+    <p>Open and close modal dialogs with backdrop handling and keyboard support; supports confirm-style modals used for destructive actions.</p>
+
+    <h2>Data attributes</h2>
+    <ul>
+      <li><code>data-modal-open="modal-id"</code> — elements that open the modal with the matching id.</li>
+      <li><code>data-modal-close</code> — elements that close the current modal.</li>
+    </ul>
+
+    <h2>API</h2>
+    <ul>
+      <li><strong>openModal(id)</strong> — show modal by id (adds `is-open` class and traps focus).</li>
+      <li><strong>closeModal(id)</strong> — hide modal and restore focus.</li>
+      <li><strong>initModals()</strong> — attach attribute-based listeners (module auto-initializes on DOMContentLoaded).</li>
+    </ul>
+
+    <h2>Accessibility notes</h2>
+    <ul>
+      <li>Module attempts to manage focus by moving it into the modal when opened and restoring focus on close.</li>
+      <li>Escape key closes open modals.</li>
+    </ul>
+
+    <h2>Tests</h2>
+    <p>See <code>tests/modals.test.js</code> for open/close behavior, backdrop click, and confirm modal flow.</p>
+
+    <p style="font-size:0.95rem;color:#9fb4c9">Last updated: December 9, 2025</p>
+  </div>
+</body>
+</html>

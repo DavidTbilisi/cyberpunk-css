@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CSS — HexViewer</title>
+  <link rel="stylesheet" href="../../../cyberpunk.css">
+  <style>
+    body{font-family:system-ui, -apple-system, "Segoe UI", Roboto, Arial; background:#071018; color:#e6eef8; padding:28px}
+    .container{max-width:980px;margin:0 auto}
+    h1{color:#ffd86b}
+    .hex-table{font-family:monospace;font-size:13px;border-collapse:collapse;width:100%}
+    .hex-table td{padding:6px;border-bottom:1px dashed rgba(255,255,255,0.03)}
+    pre{background:#001119;padding:12px;border-radius:6px}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../css.html">← Back to CSS index</a>
+    <h1>HexViewer</h1>
+    <p>Class: <code>.hex-table</code> — applied to the table that visualizes bytes and ASCII.
+    </p>
+
+    <h2>Example structure</h2>
+    <pre><code>&lt;div id="hex" class="hex-table"&gt;…rendered table…&lt;/div&gt;
+</code></pre>
+
+    <h2>Styling notes</h2>
+    <ul>
+      <li>Use monospace fonts for alignment.</li>
+      <li>Ensure adequate contrast for small hex values; consider larger font-size for readability.</li>
+    </ul>
+
+    <div style="margin-top:18px;color:#9fb4c9">Last updated: December 9, 2025</div>
+  </div>
+  <script type="module">
+    // demo: render a small buffer into the example container
+    import('../../scripts/hexviewer.js').then(mod => {
+      const el = document.querySelector('#hex');
+      if (!el) return;
+      const text = 'Hello, docs!';
+      const enc = new TextEncoder();
+      const buf = enc.encode(text);
+      if (mod.renderHex) mod.renderHex(el, buf);
+    });
+  </script>
+</body>
+</html>

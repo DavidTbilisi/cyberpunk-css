@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>NetGraph Module — cyberpunk-css</title>
+  <link rel="stylesheet" href="../../cyberpunk.css">
+  <style>
+    body{font-family:system-ui, -apple-system, "Segoe UI", Roboto, Arial; background:#071018; color:#e6eef8; padding:28px}
+    .container{max-width:900px;margin:0 auto}
+    h1{color:#ffd86b}
+    pre{background:#001119;padding:12px;border-radius:6px}
+    a{color:#7ee7ff}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../../index.html">← Back to demo</a>
+    <h1>NetGraph Module</h1>
+    <p>File: <code>scripts/netgraph.js</code></p>
+
+    <h2>Purpose</h2>
+    <p>Lightweight SVG-based renderer for simple network topologies. Nodes and edges are drawn as SVG groups; an optional packet emitter animates packets along edges for demo purposes.</p>
+
+    <h2>API</h2>
+    <ul>
+      <li><strong>renderNetGraph(container, topology, options)</strong> — render nodes and edges. <code>topology</code> is an object containing <code>nodes: [{id,x,y,label}]</code> and <code>links: [{from,to}]</code>.</li>
+      <li><strong>_createSvg()</strong> and other internals are exported for testability.</li>
+    </ul>
+
+    <h2>Topology format</h2>
+    <pre><code>{
+  nodes: [ { id: 'a', x: 50,  y:100, label:'Server A' }, ... ],
+  links: [ { from: 'a', to: 'b' }, ... ]
+}
+</code></pre>
+
+    <h2>Options</h2>
+    <ul>
+      <li><code>packetInterval</code> — how often demo packets are emitted (ms)</li>
+      <li><code>nodeRadius</code> — visual radius for nodes</li>
+    </ul>
+
+    <h2>Tests</h2>
+    <p>See <code>tests/netgraph.test.js</code> — tests cover SVG creation, node/edge counts, and packet emitter behavior.</p>
+
+    <p style="font-size:0.95rem;color:#9fb4c9">Last updated: December 9, 2025</p>
+  </div>
+</body>
+</html>

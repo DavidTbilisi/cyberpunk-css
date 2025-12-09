@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SFX Module — cyberpunk-css</title>
+  <link rel="stylesheet" href="../../cyberpunk.css">
+  <style>
+    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; line-height:1.5; color:#e6eef8; background:#0b0f14; padding:28px; }
+    .container{max-width:900px;margin:0 auto}
+    h1{color:#ffd86b;margin-bottom:8px}
+    pre{background:#071018;color:#d7f6ff;padding:12px;border-radius:6px;overflow:auto}
+    a { color: #7ee7ff }
+    .meta { color:#9fb4c9; font-size:0.95rem }
+    table{border-collapse:collapse;margin:12px 0}
+    td,th{padding:6px 10px;border:1px dashed rgba(255,255,255,0.04)}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../../index.html">← Back to demo</a>
+    <h1>SFX Module</h1>
+    <div class="meta">File: <code>scripts/sfx.js</code> — Lightweight WebAudio SFX for UI</div>
+
+    <p>Purpose: Small, dependency-free sound effects used across the UI (clicks, hovers, success/error tones, open/close, keypresses).</p>
+
+    <h2>Exports</h2>
+    <ul>
+      <li><strong>play(name)</strong> — Play a named effect. Supported names: <code>click</code>, <code>hover</code>, <code>success</code>, <code>error</code>, <code>open</code>, <code>close</code>, <code>keypress</code>.</li>
+      <li><strong>unlock()</strong> — Attempt to resume a suspended <code>AudioContext</code> (useful to call on first user gesture).</li>
+      <li><strong>initSfxListeners()</strong> — Attach UI listeners and wire hover/keypress effects to common elements.</li>
+    </ul>
+
+    <h2>Behavior & Notes</h2>
+    <ul>
+      <li>The module auto-initializes on DOM ready by calling <code>initSfxListeners()</code>. If you prefer manual control, import and call <code>initSfxListeners()</code> yourself.</li>
+      <li>If the browser lacks Web Audio support (<code>AudioContext</code>), API calls are no-ops.</li>
+      <li>Keypress SFX are throttled to avoid noisy repeats when holding keys.</li>
+      <li>All tones are synthesized with an oscillator + gain envelope; there are no audio files.</li>
+    </ul>
+
+    <h2>Quick Example</h2>
+    <pre><code>// Play a click sound from another module or page
+import { play } from './scripts/sfx.js';
+
+const btn = document.querySelector('#saveBtn');
+btn.addEventListener('click', () =&gt; play('click'));
+    </code></pre>
+
+    <h2>Auto-init & Manual Init</h2>
+    <p>By default the module wires listeners for:</p>
+    <ul>
+      <li><code>pointerdown</code> / <code>keydown</code> once to call <code>unlock()</code></li>
+      <li><code>mouseenter</code> on <code>a</code>, <code>.cp-btn</code>, <code>.cp-navbar__link</code>, and <code>[data-theme-toggle]</code> to play <code>hover</code></li>
+      <li><code>keydown</code> on <code>input</code> and <code>textarea</code> to play <code>keypress</code></li>
+    </ul>
+
+    <h2>Implementation Details</h2>
+    <p>Internals:</p>
+    <table>
+      <tr><th>function</th><th>purpose</th></tr>
+      <tr><td><code>getContext()</code></td><td>Create / cache <code>AudioContext</code>.</td></tr>
+      <tr><td><code>playTone(opts)</code></td><td>Schedule oscillator + gain envelope.</td></tr>
+    </table>
+
+    <h2>Tests</h2>
+    <p>See <code>tests/sfx.test.js</code> for unit tests that mock <code>AudioContext</code>, verify all named sounds, <code>unlock()</code>, and listener wiring.</p>
+
+    <h2>Troubleshooting</h2>
+    <ul>
+      <li>No sound in browser? Ensure a user gesture has unlocked audio or call <code>unlock()</code> from a click handler.</li>
+      <li>Headless environments (CI) should mock <code>AudioContext</code> as tests do.</li>
+    </ul>
+
+    <hr />
+    <p style="font-size:0.95rem;color:#9fb4c9">Last updated: December 9, 2025 — Module docs generated from <code>scripts/sfx.js</code>.</p>
+  </div>
+</body>
+</html>

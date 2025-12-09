@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CSS Classes & Capabilities — cyberpunk-css</title>
+  <link rel="stylesheet" href="../../cyberpunk.css">
+  <style>
+    body{font-family:system-ui, -apple-system, "Segoe UI", Roboto, Arial; background:#071018; color:#e6eef8; padding:28px}
+    .container{max-width:980px;margin:0 auto}
+    h1{color:#ffd86b}
+    pre{background:#001119;padding:12px;border-radius:6px}
+    a{color:#7ee7ff}
+    table{width:100%;border-collapse:collapse;margin-top:12px}
+    th,td{padding:8px;border-bottom:1px dashed rgba(255,255,255,0.03);text-align:left}
+    .kbd{background:#071820;padding:2px 6px;border-radius:4px;border:1px solid rgba(255,255,255,0.03);font-family:monospace}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../../index.html">← Back to demo</a>
+    <h1>CSS Classes & Capabilities</h1>
+    <p>Overview of utility classes, component classes, and SCSS partials used in this project.</p>
+
+    <h2>SCSS partials</h2>
+    <table>
+      <thead><tr><th>File</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr><td><code>_variables.scss</code></td><td>Color, spacing, and size variables used across components.</td></tr>
+        <tr><td><code>_mixins.scss</code></td><td>Reusable mixins (responsive helpers, gradient helpers, etc.).</td></tr>
+        <tr><td><code>_fonts.scss</code></td><td>Font-face and typographic scales.</td></tr>
+        <tr><td><code>_navbar.scss</code></td><td>Navbar styles and scroll-state styles (tied to <code>is-scrolled</code> class).</td></tr>
+        <tr><td><code>cyberpunk.scss</code></td><td>Main entry importing partials and component rules.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Component classes</h2>
+    <table>
+      <thead><tr><th>Class</th><th>Meaning / Usage</th></tr></thead>
+      <tbody>
+        <tr><td><code>.cp-btn</code></td><td>Primary button styling; used with data attributes for ripple and interactions.</td></tr>
+        <tr><td><code>.site-header</code></td><td>Top navigation wrapper; receives <code>is-scrolled</code> when page scrolls.</td></tr>
+        <tr><td><code>.cp-toast</code></td><td>Toast element styling (enter/exit transitions controlled by JS).</td></tr>
+        <tr><td><code>.cp-modal</code></td><td>Modal dialog shell; toggled with <code>is-open</code> class.</td></tr>
+        <tr><td><code>.hex-table</code></td><td>Container for hex + ASCII rendering; rendered by <code>hexviewer.js</code>.</td></tr>
+        <tr><td><code>.netgraph</code></td><td>SVG wrapper class; used by <code>netgraph.js</code>.</td></tr>
+        <tr><td><code>.terminal</code></td><td>Retro terminal visual styles for demo content and code blocks.</td></tr>
+        <tr><td><code>.window</code></td><td>Retro OS window chrome (titlebar, controls, draggable) styles.</td></tr>
+        <tr><td><code>.code</code></td><td>Code block styling — monospace, selectable, with subtle glow.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Per-component pages</h2>
+    <p>Each component has a dedicated page with examples and markup.</p>
+    <ul>
+      <li><a href="css-components/buttons.html">Buttons</a></li>
+      <li><a href="css-components/navbar.html">Navbar</a></li>
+      <li><a href="css-components/toasts.html">Toasts</a></li>
+      <li><a href="css-components/modals.html">Modals</a></li>
+      <li><a href="css-components/hexviewer.html">HexViewer</a></li>
+      <li><a href="css-components/netgraph.html">NetGraph</a></li>
+      <li><a href="css-components/terminal.html">Terminal</a></li>
+      <li><a href="css-components/window.html">Window</a></li>
+      <li><a href="css-components/code.html">Code</a></li>
+      <li><a href="css-components/utilities.html">Utilities</a></li>
+    </ul>
+
+    <h2>Utility classes</h2>
+    <table>
+      <thead><tr><th>Class</th><th>Effect</th></tr></thead>
+      <tbody>
+        <tr><td><code>.visually-hidden</code></td><td>Accessibility helper to hide content visually but keep it readable by screen readers.</td></tr>
+        <tr><td><code>.cp-grid</code></td><td>Responsive grid used in demos and docs.</td></tr>
+        <tr><td><code>.muted</code></td><td>Lower contrast text color for meta information.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Interaction hooks (CSS + JS)</h2>
+    <p>Some classes are toggled by JS and correspond to visual states. Example:</p>
+    <pre><code>// Applied by JS when navbar is scrolled
+&lt;header class="site-header is-scrolled"&gt;…&lt;/header&gt;
+
+// Modal open state
+&lt;div id="confirm" class="cp-modal is-open"&gt;…&lt;/div&gt;
+</code></pre>
+
+    <h2>Notes & caveats</h2>
+    <ul>
+      <li>Most colors and sizes are driven from <code>_variables.scss</code> and should be changed there to keep consistency.</li>
+      <li>Styles rely on modern CSS (custom properties, flexbox, grid). For older browser support, run the SCSS through a postcss/autoprefixer step.</li>
+      <li>Visual effects (ripples, packet animations) are implemented with minimal DOM updates; tweak timing in CSS if you adjust JS durations.</li>
+    </ul>
+
+    <h2>Where to start</h2>
+    <p>If you're adding or modifying a component, edit the appropriate partial in the repo root (e.g. <code>_navbar.scss</code>) and rebuild the CSS with the project's sass script:</p>
+    <pre><code>npm run build:css
+</code></pre>
+
+    <div style="margin-top:18px;color:#9fb4c9">Last updated: December 9, 2025</div>
+  </div>
+</body>
+</html>

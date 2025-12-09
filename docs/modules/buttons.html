@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Buttons Module — cyberpunk-css</title>
+  <link rel="stylesheet" href="../../cyberpunk.css">
+  <style>
+    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; line-height:1.5; color:#e6eef8; background:#0b0f14; padding:28px; }
+    .container{max-width:900px;margin:0 auto}
+    h1{color:#ffd86b;margin-bottom:8px}
+    pre{background:#071018;color:#d7f6ff;padding:12px;border-radius:6px;overflow:auto}
+    a { color: #7ee7ff }
+    .meta { color:#9fb4c9; font-size:0.95rem }
+    table{border-collapse:collapse;margin:12px 0}
+    td,th{padding:6px 10px;border:1px dashed rgba(255,255,255,0.04)}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../../index.html">← Back to demo</a>
+    <h1>Buttons Module</h1>
+    <div class="meta">File: <code>scripts/buttons.js</code> — Interactive button behaviors</div>
+
+    <p>Purpose: Small helpers that wire interactive button UX: ripples, data-driven text changes, press-scale, and smooth scroll triggers.</p>
+
+    <h2>Features / Data attributes</h2>
+    <ul>
+      <li><strong>Ripple</strong> — click ripple effect added to `.cp-btn` elements.</li>
+      <li><strong>data-click-text</strong> — replaces button text on click with the provided value.</li>
+      <li><strong>data-hover-text</strong> &amp; <strong>data-default-text</strong> — temporary text on hover.</li>
+      <li><strong>data-press-scale</strong> — scale factor (e.g. `0.95`) applied on mousedown and removed on mouseup/mouseleave.</li>
+      <li><strong>data-scroll-to</strong> — scrolls the window to a vertical pixel position (`data-scroll-to="500"`) smoothly.</li>
+    </ul>
+
+    <h2>Usage examples</h2>
+    <pre><code>&lt;button class="cp-btn" data-click-text="SENT"&gt;Send&lt;/button&gt;
+
+&lt;button class="cp-btn" data-hover-text="Ready" data-default-text="Hover Me"&gt;Hover Me&lt;/button&gt;
+
+&lt;button class="cp-btn" data-press-scale="0.96"&gt;Press Me&lt;/button&gt;
+
+&lt;button class="cp-btn" data-scroll-to="800"&gt;Scroll Down&lt;/button&gt;
+</code></pre>
+
+    <h2>Initialization</h2>
+    <p>The module auto-initializes on DOM ready and attaches event handlers to elements with the above data attributes. To manually initialize, import the module and call its init function (see tests for examples).</p>
+
+    <h2>Implementation notes</h2>
+    <ul>
+      <li>Ripple elements are transient DOM nodes removed after animationend.</li>
+      <li>Text replacement uses the element's textContent; keep markup simple.
+      <li>Scroll uses <code>window.scrollTo({ top, behavior: 'smooth' })</code> — mocked in tests.</li>
+    </ul>
+
+    <h2>Tests</h2>
+    <p>See <code>tests/buttons.test.js</code> for unit coverage and expected behaviors (ripple creation/removal, attribute handling, scroll call).</p>
+
+    <hr />
+    <p style="font-size:0.95rem;color:#9fb4c9">Last updated: December 9, 2025</p>
+  </div>
+</body>
+</html>

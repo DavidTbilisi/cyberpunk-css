@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Navbar Module — cyberpunk-css</title>
+  <link rel="stylesheet" href="../../cyberpunk.css">
+  <style>
+    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; line-height:1.5; color:#e6eef8; background:#071018; padding:28px }
+    .container{max-width:900px;margin:0 auto}
+    h1{color:#ffd86b}
+    pre{background:#001119;color:#d7f6ff;padding:12px;border-radius:6px}
+    a { color: #7ee7ff }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../../index.html">← Back to demo</a>
+    <h1>Navbar Module</h1>
+    <p>File: <code>scripts/navbar.js</code></p>
+
+    <h2>Purpose</h2>
+    <p>Handles scroll-aware UI state for the top navigation (adds/removes <code>is-scrolled</code> class).</p>
+
+    <h2>Behavior</h2>
+    <ul>
+      <li>Listens to <code>scroll</code> and toggles a class on the document's <code>body</code> (or configured nav element) when the page is scrolled beyond a small threshold.</li>
+      <li>Helps drive CSS effects like drop shadows, blur, or a color shift on the navbar when the page moves.</li>
+    </ul>
+
+    <h2>Customization</h2>
+    <p>Default threshold and target element are internal constants. If you need custom behavior, import the module and call its exported init function and pass a config object (see test file for examples):</p>
+    <pre><code>// pseudo
+import { initNavbar } from './scripts/navbar.js';
+initNavbar({ target: document.querySelector('.site-header'), threshold: 12 });
+    </code></pre>
+
+    <h2>Tests</h2>
+    <p>Check <code>tests/navbar.test.js</code> for scroll simulations and class toggling assertions.</p>
+
+    <p style="font-size:0.95rem;color:#9fb4c9">Last updated: December 9, 2025</p>
+  </div>
+</body>
+</html>
