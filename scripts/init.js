@@ -7,3 +7,4 @@ import './toasts.js';
 import './modals.js';
 import './hexviewer.js';
 import './netgraph.js';
+import './netgraph-markup.js';

@@ -38,11 +38,21 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  box-shadow: 0 0 6px rgba($cp-magenta, 0.06);
+  border: 1px solid color-mix(in srgb, var(--cp-border) 55%, transparent);
+  box-shadow: inset 0 0 0 1px var(--cp-chrome-dot-ring);
 }
-.cp-terminal__controls .dot--close { background: $cp-amber; }
-.cp-terminal__controls .dot--min  { background: $cp-magenta; }
-.cp-terminal__controls .dot--max  { background: $cp-green; }
+.cp-terminal__controls .dot--close {
+  background: var(--cp-chrome-close-bg);
+  border-color: var(--cp-chrome-close-border);
+}
+.cp-terminal__controls .dot--min {
+  background: var(--cp-chrome-min-bg);
+  border-color: var(--cp-chrome-min-border);
+}
+.cp-terminal__controls .dot--max {
+  background: var(--cp-chrome-max-bg);
+  border-color: var(--cp-chrome-max-border);
+}
 
 .cp-terminal__title {
   font-family: $font-sci;

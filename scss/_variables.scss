@@ -172,6 +172,8 @@ $cp-navbar-toggle-size: 44px !default;
 $cp-focus-ring: 2px solid rgba(40, 247, 255, 0.2) !default;
 $cp-focus-offset: 3px !default;
 
+// Titlebar dots use CSS vars + color-mix in _terminal / _windows (see _colors.scss :root)
+
 // Theme flags
 $cp-theme-dark: true !default;
 

@@ -367,7 +367,36 @@
         <div class="cp-stack">
           <h4 class="cp-title">Network Graph</h4>
           <button class="cp-btn" data-netgraph-load data-netgraph-target="#demo-netgraph">Load Network Graph</button>
-          <div id="demo-netgraph" style="margin-top:12px; width:100%; max-width:680px;"></div>
+          <div id="demo-netgraph" style="margin-top:12px; width:100%; max-width:1000px;"></div>
+        </div>
+        <div class="cp-stack">
+          <h4 class="cp-title">Network Graph (HTML / Mermaid-like text)</h4>
+          <p style="margin:0 0 8px; font-size:13px; color: var(--cp-muted, #9aa3b2);">No JSON: topology lives in <code>&lt;script type="text/cp-netgraph"&gt;</code> (compact) or in HTML lists. Renders on load when <code>data-netgraph-auto</code> is set.</p>
+          <div id="demo-netgraph-html" style="margin-top:12px; width:100%; max-width:1000px;"></div>
+          <div id="net-html-def" hidden
+            data-netgraph-def
+            data-netgraph-auto
+            data-netgraph-target="#demo-netgraph-html"
+            data-netgraph-title="Markup (text/cp-netgraph)">
+            <script type="text/cp-netgraph">
+# Sample topology (Mermaid-like, not full Mermaid)
+core(Core Router):::router
+edgeA(Edge A)
+edgeB(Edge B)
+data(Data plane):::server
+
+core --> edgeA
+core --> edgeB
+core --> data
+edgeA --> data
+            </script>
+          </div>
+        </div>
+        <div class="cp-stack">
+          <h4 class="cp-title">Network Graph (vis-network)</h4>
+          <p style="margin:0 0 8px; font-size:13px; color: var(--cp-muted, #9aa3b2);">Optional library: physics, zoom, and drag. Loaded on demand only when you press the button.</p>
+          <button type="button" class="cp-btn" id="load-netgraph-vis">Load vis-network</button>
+          <div id="demo-netgraph-vis" style="margin-top:12px; width:100%; max-width:1000px;"></div>
         </div>
       </div>
     </div>
@@ -418,6 +447,26 @@
 
   <!-- Only scripts -->
   <script type="module" src="scripts/init.js"></script>
+  <script type="module">
+    const visTopology = {
+      nodes: [
+        { id: 'gw', label: 'Gateway', type: 'router' },
+        { id: 'n1', label: 'Node 1', type: 'node' },
+        { id: 'n2', label: 'Node 2', type: 'node' },
+        { id: 'db', label: 'DB Server', type: 'server' }
+      ],
+      edges: [
+        { source: 'gw', target: 'n1' },
+        { source: 'gw', target: 'n2' },
+        { source: 'gw', target: 'db' },
+        { source: 'n1', target: 'db' }
+      ]
+    };
+    document.getElementById('load-netgraph-vis')?.addEventListener('click', async () => {
+      const mod = await import('./scripts/netgraph-vis.js');
+      await mod.renderNetGraphVis('#demo-netgraph-vis', visTopology, { title: 'Topology (vis-network)' });
+    });
+  </script>
 
 </body>
 </html>

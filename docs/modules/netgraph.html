@@ -7,46 +7,215 @@
   <link rel="stylesheet" href="../../cyberpunk.css">
   <style>
     body{font-family:system-ui, -apple-system, "Segoe UI", Roboto, Arial; background:#071018; color:#e6eef8; padding:28px}
-    .container{max-width:900px;margin:0 auto}
+    .container{max-width:960px;margin:0 auto}
     h1{color:#ffd86b}
-    pre{background:#001119;padding:12px;border-radius:6px}
+    h2{margin-top:1.75rem}
+    pre{background:#001119;padding:14px;border-radius:6px;overflow:auto;font-size:13px}
+    code{color:#9fdfff}
     a{color:#7ee7ff}
+    table{border-collapse:collapse;width:100%;margin:12px 0;font-size:14px}
+    th,td{border:1px solid rgba(255,255,255,0.12);padding:8px 10px;text-align:left}
+    th{background:rgba(0,30,40,0.6)}
   </style>
 </head>
 <body>
   <div class="container">
-    <nav style="margin-bottom:10px">
-      <a href="../../index.html">Demo</a> • <a href="../../docs.html">Docs index</a>
+    <nav style="margin-bottom:14px">
+      <a href="../../index.html">Demo</a> · <a href="../../docs.html">Docs index</a> ·
+      <a href="../components.html">Components</a>
     </nav>
-    <h1>NetGraph Module</h1>
-    <p>File: <code>scripts/netgraph.js</code></p>
+
+    <h1>NetGraph module</h1>
+    <p>Built-in SVG: <code>scripts/netgraph.js</code> · <code>scss/_netgraph.scss</code>. Optional library view: <code>scripts/netgraph-vis.js</code> · <code>scss/_netgraph-vis.scss</code> (both composed from <code>scss/cyberpunk.scss</code>).</p>
 
     <h2>Purpose</h2>
-    <p>Lightweight SVG-based renderer for simple network topologies. Nodes and edges are drawn as SVG groups; an optional packet emitter animates packets along edges for demo purposes.</p>
+    <p>NetGraph renders a <strong>read-only</strong> SVG diagram of a small network: <strong>nodes</strong> (hosts, routers, servers) on a ring layout and <strong>directed edges</strong> from <code>source</code> to <code>target</code>. It is meant for dashboards and demos, not graph editing.</p>
+    <p>The canvas uses a large internal coordinate system (default <code>1200×560</code>) so labels and nodes stay legible; the SVG scales with the container. Optional <strong>packet dots</strong> animate along edges in the same direction as the arrows.</p>
+
+    <h2>Flow direction</h2>
+    <ul>
+      <li><strong>Topology</strong> — Each edge is <code>{ source: 'idA', target: 'idB' }</code>. Traffic in the demo is shown from A → B.</li>
+      <li><strong>Arrows</strong> — By default, each edge is an SVG <code>&lt;line&gt;</code> with <code>marker-end</code> pointing at the target node. Lines are shortened so arrows sit outside the node discs.</li>
+      <li><strong>Packets</strong> — When enabled, animated circles move from the trimmed start of the line to the trimmed end (same as arrow direction).</li>
+      <li><strong>Disable cues</strong> — Set <code>arrows: false</code> for undirected diagrams, or <code>packets: false</code> for a static graph.</li>
+    </ul>
 
     <h2>API</h2>
+    <p><strong><code>renderNetGraph(container, topology?, options?) → { destroy }</code></strong></p>
     <ul>
-      <li><strong>renderNetGraph(container, topology, options)</strong> — render nodes and edges. <code>topology</code> is an object containing <code>nodes: [{id,x,y,label}]</code> and <code>links: [{from,to}]</code>.</li>
-      <li><strong>_createSvg()</strong> and other internals are exported for testability.</li>
+      <li><code>container</code> — CSS selector string or DOM element.</li>
+      <li><code>topology</code> — Object with <code>nodes</code> and <code>edges</code> (see below).</li>
+      <li><code>options</code> — Optional settings (see table).</li>
+      <li>Returns <code>{ destroy }</code>. Calling <code>destroy()</code> clears timers and DOM. Rendering again into the same container automatically tears down the previous graph.</li>
     </ul>
+
+    <p><strong><code>initNetGraph()</code></strong> — Wires buttons with <code>data-netgraph-load</code>. Runs on <code>DOMContentLoaded</code> when the script loads. Each click calls <code>renderNetGraph</code> on the target element.</p>
 
     <h2>Topology format</h2>
     <pre><code>{
-  nodes: [ { id: 'a', x: 50,  y:100, label:'Server A' }, ... ],
-  links: [ { from: 'a', to: 'b' }, ... ]
-}
-</code></pre>
-
-    <h2>Options</h2>
+  "nodes": [
+    { "id": "gw", "label": "Gateway", "type": "router" },
+    { "id": "app", "label": "App", "type": "server" },
+    { "id": "c1", "label": "Client", "type": "client" }
+  ],
+  "edges": [
+    { "source": "gw", "target": "app" },
+    { "source": "c1", "target": "gw" }
+  ]
+}</code></pre>
+    <p>Fields:</p>
     <ul>
-      <li><code>packetInterval</code> — how often demo packets are emitted (ms)</li>
-      <li><code>nodeRadius</code> — visual radius for nodes</li>
+      <li><code>nodes[].id</code> — Required string key referenced by edges.</li>
+      <li><code>nodes[].label</code> — Optional; falls back to <code>id</code>.</li>
+      <li><code>nodes[].type</code> — <code>"router"</code> | <code>"server"</code> | anything else (treated as client/worker) — controls disc size and color.</li>
+      <li><code>edges[].source</code> / <code>edges[].target</code> — Must match existing node <code>id</code>s. Invalid edges are skipped.</li>
+    </ul>
+    <p>Custom <code>x</code> / <code>y</code> on nodes are not used yet; layout is a balanced ring inside the view box.</p>
+
+    <h2>HTML-only and Mermaid-like text (recommended for authors)</h2>
+    <p><code>scripts/netgraph-markup.js</code> (loaded from <code>scripts/init.js</code>) turns <strong>declarative markup</strong> into the same topology object <code>renderNetGraph</code> already understands. You avoid hand-writing JSON in attributes.</p>
+
+    <h3>Option A — Mermaid-inspired <code>&lt;script type="text/cp-netgraph"&gt;</code></h3>
+    <p>One block of plain text (similar spirit to Mermaid flowcharts, but <strong>not</strong> full Mermaid syntax):</p>
+    <ul>
+      <li><strong>Nodes</strong> — <code>id(Label)</code> or <code>id[Label]</code>, optional type: <code>id(Label):::router</code> / <code>:::server</code> / <code>:::node</code> (aliases: <code>r</code>, <code>s</code>, <code>srv</code>, <code>db</code> for server).</li>
+      <li><strong>Edges</strong> — <code>from --&gt; to</code> or <code>from -&gt; to</code> (one edge per line).</li>
+      <li><strong>Comments</strong> — lines starting with <code>#</code> are ignored.</li>
     </ul>
 
-    <h2>Tests</h2>
-    <p>See <code>tests/netgraph.test.js</code> — tests cover SVG creation, node/edge counts, and packet emitter behavior.</p>
+    <h3>Option B — Pure HTML lists</h3>
+    <p>Inside the same definition root, omit the script and use:</p>
+    <ul>
+      <li>A container <code>data-netgraph-nodes</code> with descendants carrying <code>data-id</code>, optional <code>data-type</code>, and text content as the label.</li>
+      <li>A container <code>data-netgraph-edges</code> with descendants carrying <code>data-from</code> and <code>data-to</code>.</li>
+    </ul>
 
-    <p style="font-size:0.95rem;color:#9fb4c9">Last updated: December 9, 2025</p>
+    <h3>Wiring (attributes on the definition root)</h3>
+    <table>
+      <thead>
+        <tr><th>Attribute</th><th>Meaning</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>data-netgraph-def</code></td><td>Marks this element as the definition block (required).</td></tr>
+        <tr><td><code>data-netgraph-target</code></td><td>CSS selector of the mount node where the SVG graph is drawn (required).</td></tr>
+        <tr><td><code>data-netgraph-auto</code></td><td>Present → parse and render on <code>DOMContentLoaded</code>.</td></tr>
+        <tr><td><code>data-netgraph-title</code></td><td>Panel title (optional).</td></tr>
+        <tr><td><code>data-netgraph-emit-interval</code></td><td>Packet interval in ms (optional).</td></tr>
+        <tr><td><code>data-netgraph-packets=&quot;false&quot;</code></td><td>Disable packet animation.</td></tr>
+        <tr><td><code>data-netgraph-arrows=&quot;false&quot;</code></td><td>Hide arrowheads.</td></tr>
+        <tr><td><code>data-netgraph-width</code> / <code>data-netgraph-height</code></td><td>SVG viewBox size (optional).</td></tr>
+      </tbody>
+    </table>
+
+    <p>Manual trigger: a button with <code>data-netgraph-build</code> and <code>data-netgraph-from=&quot;#id-of-def&quot;</code> (the definition root must still include <code>data-netgraph-target</code>).</p>
+
+    <pre><code>&lt;div id="net-def" hidden
+  data-netgraph-def
+  data-netgraph-auto
+  data-netgraph-target="#net-viz"
+  data-netgraph-title="LAN"&gt;
+  &lt;script type="text/cp-netgraph"&gt;
+# Core + edges
+gw(Gateway):::router
+n1(Node 1)
+db(DB):::server
+
+gw --> n1
+gw --> db
+n1 --> db
+  &lt;/script&gt;
+&lt;/div&gt;
+&lt;div id="net-viz"&gt;&lt;/div&gt;</code></pre>
+
+    <p>JS API: <code>import { parseTopologyFromText, parseTopologyFromElement, buildNetGraphFromMarkup } from './scripts/netgraph-markup.js'</code> for custom pipelines.</p>
+
+    <h2>Optional: vis-network (<code>npm install vis-network</code>)</h2>
+    <p>For <strong>interactive</strong> graphs (drag nodes, zoom, physics), use the separate module <code>scripts/netgraph-vis.js</code>. It is <strong>not</strong> imported from <code>scripts/init.js</code>, so the default demo stays lightweight. The library loads only when you <code>import()</code> this file in the browser.</p>
+    <ul>
+      <li><strong>Dependency</strong> — <code>vis-network</code> is listed in <code>package.json</code>. The standalone ESM bundle is resolved from <code>node_modules/vis-network/standalone/esm/vis-network.js</code> relative to the script URL, so your static server must expose <code>node_modules</code> (typical for local dev).</li>
+      <li><strong>Styles</strong> — On first render, a <code>&lt;link&gt;</code> is injected for <code>vis-network/styles/vis-network.min.css</code>. Panel chrome uses <code>.cp-netgraph--vis</code> and <code>.cp-netgraph-vis__canvas</code>.</li>
+      <li><strong>Topology</strong> — Same <code>nodes</code> / <code>edges</code> schema as the SVG renderer. Plain mapping lives in <code>scripts/netgraph-vis-topology.js</code> (<code>topologyToVisElements</code>) for unit tests without loading vis.</li>
+      <li><strong>Theme colors</strong> — Same semantics as the SVG graph: router = <code>--cp-magenta</code>, server = <code>--cp-blue</code>, other = <code>--cp-cyan</code>; borders mix <code>--cp-foreground</code>, highlights use <code>--cp-amber</code>, edges tint <code>--cp-cyan</code>. <code>renderNetGraphVis</code> passes the mount element as <code>themeRoot</code> so <code>getComputedStyle</code> picks up inherited tokens (e.g. a parent with <code>class="theme-matrix"</code>). If you call <code>topologyToVisElements()</code> yourself, pass <code>{ themeRoot: yourContainer }</code> to match that subtree.</li>
+      <li><strong>Flow</strong> — Edges use vis arrows <code>to</code> (target). Disable with <code>arrows: false</code>.</li>
+    </ul>
+
+    <p><strong><code>renderNetGraphVis(container, topology?, options?)</code></strong> — async; resolves to an object with <code>destroy</code> and <code>network</code>, or <code>null</code> on failure.</p>
+    <ul>
+      <li><code>network</code> — The vis <code>Network</code> instance for advanced callers (<code>setData</code>, event listeners, etc.).</li>
+      <li>Returns <code>null</code> if the container is missing or the vis module fails to load (check the console).</li>
+      <li>Uses the same <code>__cpNetGraphDestroy</code> hook as the SVG graph so you can swap implementations in one mount point.</li>
+    </ul>
+
+    <p>Extra options (in addition to <code>title</code> and <code>arrows</code>):</p>
+    <table>
+      <thead>
+        <tr><th>Option</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>physics</code></td><td>boolean</td><td><code>true</code></td><td>Enable force layout during stabilization.</td></tr>
+        <tr><td><code>freezeAfterStabilize</code></td><td>boolean</td><td><code>true</code></td><td>Turn physics off after layout settles (less CPU).</td></tr>
+        <tr><td><code>visOptions</code></td><td>object</td><td>—</td><td>Shallow-merged into vis <code>options</code> (see <a href="https://visjs.github.io/vis-network/docs/network/">vis-network docs</a>).</td></tr>
+        <tr><td><code>randomSeed</code></td><td>number</td><td><code>2</code></td><td>Passed into <code>layout.randomSeed</code> for reproducible runs.</td></tr>
+      </tbody>
+    </table>
+
+    <pre><code>import { renderNetGraphVis, topologyToVisElements } from './scripts/netgraph-vis.js';
+
+const topology = { nodes: [...], edges: [...] };
+const handle = await renderNetGraphVis('#host', topology, {
+  title: 'Operations graph',
+  visOptions: { physics: { barnesHut: { springLength: 260 } } }
+});
+// handle.network.on('click', ...);
+// handle.destroy();</code></pre>
+
+    <h2>Declarative hook (<code>data-*</code>)</h2>
+    <pre><code>&lt;button type="button" class="cp-btn"
+  data-netgraph-load
+  data-netgraph-target="#my-graph"
+  data-netgraph-payload='{"nodes":[...],"edges":[...]}'&gt;
+  Load graph
+&lt;/button&gt;
+&lt;div id="my-graph"&gt;&lt;/div&gt;</code></pre>
+    <ul>
+      <li><code>data-netgraph-target</code> — Selector for the mount point (default <code>#demo-netgraph</code> if omitted).</li>
+      <li><code>data-netgraph-payload</code> — Optional JSON string for topology; if missing or invalid, a built-in sample topology is used.</li>
+    </ul>
+
+    <h2>Options</h2>
+    <table>
+      <thead>
+        <tr><th>Option</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>width</code></td><td>number</td><td><code>1200</code></td><td>Internal SVG width (viewBox units). Larger values give more spacing on the ring.</td></tr>
+        <tr><td><code>height</code></td><td>number</td><td><code>560</code></td><td>Internal SVG height.</td></tr>
+        <tr><td><code>title</code></td><td>string</td><td><code>"Network Topology"</code></td><td>Panel title and SVG <code>aria-label</code> (plain text only).</td></tr>
+        <tr><td><code>arrows</code></td><td>boolean</td><td><code>true</code></td><td>Show directed arrowheads toward <code>target</code>.</td></tr>
+        <tr><td><code>packets</code></td><td>boolean</td><td><code>true</code></td><td>Emit animated packets along random edges on an interval.</td></tr>
+        <tr><td><code>emitInterval</code></td><td>number (ms)</td><td><code>1400</code></td><td>Time between packet spawns when packets are enabled.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Example (module)</h2>
+    <pre><code>import { renderNetGraph } from './scripts/netgraph.js';
+
+const topology = { nodes: [...], edges: [...] };
+const handle = renderNetGraph('#graph', topology, {
+  title: 'Edge site',
+  emitInterval: 1100,
+  arrows: true,
+  packets: true
+});
+// later: handle.destroy();</code></pre>
+
+    <h2>Styling</h2>
+    <p>The root gets <code>.cp-netgraph</code>. The plot area is <code>.cp-netgraph__canvas</code> (responsive height via CSS <code>clamp</code> / <code>min</code>). Edge strokes and arrow fill use semi-transparent colors; override in your stylesheet with <code>.cp-netgraph__edge</code> and <code>.cp-netgraph__arrow-head</code> if needed.</p>
+
+    <h2>Tests</h2>
+    <p>See <code>tests/netgraph.test.js</code> (SVG), <code>tests/netgraph-markup.test.js</code> (HTML / text parsing), and <code>tests/netgraph-vis.test.js</code> (vis topology mapping).</p>
+
+    <p style="font-size:0.95rem;color:#9fb4c9;margin-top:2rem">Module documentation · cyberpunk-css</p>
   </div>
 </body>
 </html>

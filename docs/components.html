@@ -35,16 +35,26 @@
 
     <section>
       <h2>Network Topology Graph</h2>
-      <p>Visualize nodes and edges with simple packet animations. This is a simulated view for demos only.</p>
+      <p>Visualize nodes and edges at a comfortable size: the SVG uses a wide internal view (default <code>1200×560</code>) and the canvas grows with the viewport (<code>min-height</code> / <code>vh</code> in CSS). <strong>Directed edges</strong> use arrowheads from <code>source</code> to <code>target</code>; optional packet dots move the same way. This is a simulated, read-only view for demos and dashboards.</p>
+      <p>Full API, topology JSON, <code>data-*</code> hooks, and options (<code>width</code>, <code>height</code>, <code>title</code>, <code>arrows</code>, <code>packets</code>, <code>emitInterval</code>) are documented in <a href="modules/netgraph.html">modules/netgraph.html</a>. The same page documents an optional <strong>vis-network</strong> integration (<code>renderNetGraphVis</code>) for interactive physics and zoom.</p>
 
       <div class="cp-panel" style="margin-top:12px;">
         <div style="display:flex;gap:12px;flex-direction:column;">
           <button class="cp-btn" id="load-netgraph">Load Sample Topology</button>
-          <div id="demo-netgraph" style="width:100%;max-width:980px;"></div>
+          <div id="demo-netgraph" style="width:100%;max-width:1100px;"></div>
         </div>
       </div>
 
-      <pre>&lt;div class="cp-netgraph" id="demo-netgraph"&gt;&lt;/div&gt;</pre>
+      <pre>&lt;button type="button" class="cp-btn" id="load-netgraph"&gt;Load graph&lt;/button&gt;
+&lt;div id="demo-netgraph" style="width:100%;max-width:1100px;"&gt;&lt;/div&gt;
+&lt;script&gt;
+  CyberUI.netGraph.render('#demo-netgraph', topology, {
+    title: 'Sample LAN',
+    emitInterval: 1200,
+    arrows: true,
+    packets: true
+  });
+&lt;/script&gt;</pre>
     </section>
 
     <section>
@@ -196,7 +206,12 @@
             { source: 'b', target: 'd' }
           ]
         };
-        CyberUI.netGraph.render('#demo-netgraph', topology, { emitInterval: 1200 });
+        CyberUI.netGraph.render('#demo-netgraph', topology, {
+          title: 'Sample topology',
+          emitInterval: 1200,
+          arrows: true,
+          packets: true
+        });
       });
     });
   </script>

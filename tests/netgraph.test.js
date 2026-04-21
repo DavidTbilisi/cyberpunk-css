@@ -129,7 +129,7 @@ describe('netgraph module', () => {
       netgraphModule.renderNetGraph('#netgraph-container', topology);
       
       const node = document.querySelector('.cp-netgraph__node');
-      expect(node.getAttribute('r')).toBe('18');
+      expect(node.getAttribute('r')).toBe('26');
     });
 
     test('server nodes get medium radius', () => {
@@ -141,7 +141,7 @@ describe('netgraph module', () => {
       netgraphModule.renderNetGraph('#netgraph-container', topology);
       
       const node = document.querySelector('.cp-netgraph__node');
-      expect(node.getAttribute('r')).toBe('14');
+      expect(node.getAttribute('r')).toBe('20');
     });
 
     test('client nodes get smallest radius', () => {
@@ -153,7 +153,7 @@ describe('netgraph module', () => {
       netgraphModule.renderNetGraph('#netgraph-container', topology);
       
       const node = document.querySelector('.cp-netgraph__node');
-      expect(node.getAttribute('r')).toBe('12');
+      expect(node.getAttribute('r')).toBe('16');
     });
 
     test('uses node id as label if no label provided', () => {
@@ -166,6 +166,75 @@ describe('netgraph module', () => {
       
       const container = document.getElementById('netgraph-container');
       expect(container.textContent).toContain('node-id-123');
+    });
+
+    test('accepts custom title via opts.title', () => {
+      netgraphModule.renderNetGraph('#netgraph-container', sampleTopology, { title: 'LAN segment' });
+      const container = document.getElementById('netgraph-container');
+      expect(container.querySelector('.cp-netgraph__title').textContent).toBe('LAN segment');
+    });
+
+    test('escapes opts.title as text (no HTML injection)', () => {
+      netgraphModule.renderNetGraph('#netgraph-container', sampleTopology, {
+        title: '<script>evil</script>'
+      });
+      const container = document.getElementById('netgraph-container');
+      expect(container.querySelector('script')).toBeNull();
+      expect(container.textContent).toContain('<script>');
+    });
+
+    test('re-render clears previous packet interval', () => {
+      const spy = jest.spyOn(global, 'clearInterval');
+      netgraphModule.renderNetGraph('#netgraph-container', sampleTopology);
+      netgraphModule.renderNetGraph('#netgraph-container', sampleTopology);
+      expect(spy).toHaveBeenCalled();
+      spy.mockRestore();
+    });
+
+    test('handle.destroy clears container', () => {
+      const handle = netgraphModule.renderNetGraph('#netgraph-container', sampleTopology);
+      handle.destroy();
+      const container = document.getElementById('netgraph-container');
+      expect(container.classList.contains('cp-netgraph')).toBe(false);
+      expect(container.querySelector('.cp-netgraph__canvas')).toBeNull();
+    });
+
+    test('opts.packets false skips packet interval', () => {
+      const spy = jest.spyOn(global, 'setInterval');
+      netgraphModule.renderNetGraph('#netgraph-container', sampleTopology, { packets: false });
+      expect(spy).not.toHaveBeenCalled();
+      spy.mockRestore();
+    });
+
+    test('node circles use cp-netgraph__node-circle for hover styles', () => {
+      netgraphModule.renderNetGraph('#netgraph-container', sampleTopology);
+      const node = document.querySelector('.cp-netgraph__node');
+      expect(node.classList.contains('cp-netgraph__node-circle')).toBe(true);
+    });
+
+    test('uses large default viewBox for readable layout', () => {
+      netgraphModule.renderNetGraph('#netgraph-container', sampleTopology);
+      const svg = document.querySelector('.cp-netgraph__svg');
+      expect(svg.getAttribute('viewBox')).toBe('0 0 1200 560');
+    });
+
+    test('edges get arrow marker-end by default', () => {
+      netgraphModule.renderNetGraph('#netgraph-container', sampleTopology);
+      const edge = document.querySelector('.cp-netgraph__edge');
+      expect(edge.getAttribute('marker-end')).toMatch(/^url\(#cp-ng-arr-/);
+      expect(document.querySelector('marker path.cp-netgraph__arrow-head')).toBeTruthy();
+    });
+
+    test('opts.arrows false omits markers and defs arrow', () => {
+      netgraphModule.renderNetGraph('#netgraph-container', sampleTopology, { arrows: false });
+      const edge = document.querySelector('.cp-netgraph__edge');
+      expect(edge.getAttribute('marker-end')).toBeNull();
+      expect(document.querySelector('marker')).toBeNull();
+    });
+
+    test('custom width and height scale viewBox', () => {
+      netgraphModule.renderNetGraph('#netgraph-container', sampleTopology, { width: 900, height: 400 });
+      expect(document.querySelector('.cp-netgraph__svg').getAttribute('viewBox')).toBe('0 0 900 400');
     });
   });
 

@@ -56,6 +56,11 @@ CyberUI.openModal('demo-modal');</pre>
     </section>
 
     <section>
+      <h2>Network graphs</h2>
+      <p>ES modules under <code>scripts/</code>: <code>netgraph.js</code> provides the default lightweight SVG renderer. For a full <a href="https://visjs.github.io/vis-network/">vis-network</a> experience, dynamically import <code>./scripts/netgraph-vis.js</code> and call <code>renderNetGraphVis(container, topology, opts)</code> (requires <code>npm install</code> and serving <code>node_modules</code> for local resolution). Details: <a href="modules/netgraph.html">modules/netgraph.html</a>.</p>
+    </section>
+
+    <section>
       <h2>Testing & Debug</h2>
       <p>Open the browser console and call the SFX or helpers directly to test without UI interactions.</p>
       <pre>CyberUI.sfx.play('click');

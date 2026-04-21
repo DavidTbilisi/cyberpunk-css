@@ -41,7 +41,7 @@ Two built-in palettes: `cyberpunk` (default) and `matrix`. Access colors via the
 - `grid-bg()` — retro grid background
 
 ### JavaScript Modules (`scripts/`)
-Each file is a standalone ES module with a matching Jest test suite in `tests/`. `init.js` is the entry point and is excluded from coverage. Modules: `buttons`, `modals`, `toasts`, `navbar`, `hexviewer`, `netgraph`, `sfx`.
+Each file is a standalone ES module with a matching Jest test suite in `tests/`. `init.js` is the entry point and is excluded from coverage. Modules: `buttons`, `modals`, `toasts`, `navbar`, `hexviewer`, `netgraph`, `netgraph-markup` (HTML / `text/cp-netgraph` → topology), `sfx`. The `netgraph` module renders a large default viewBox (`1200×560`), optional directed arrow markers (`arrows`), and packet animation along `source` → `target` edges. Optional **`netgraph-vis.js`** wraps **vis-network** (npm dependency) for interactive layouts; it is not imported from `init.js`—load via `import('./scripts/netgraph-vis.js')`. See `docs/modules/netgraph.html`.
 
 ### Output Files
 Compiled CSS is committed to the repo root (`cyberpunk.css`, `cyberpunk.min.css`, and their source maps). Always rebuild after editing SCSS.

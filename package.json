@@ -22,7 +22,8 @@
     "testTimeout": 20000,
     "collectCoverageFrom": [
       "scripts/**/*.js",
-      "!scripts/init.js"
+      "!scripts/init.js",
+      "!scripts/netgraph-vis.js"
     ],
     "coverageThreshold": {
       "global": {
@@ -50,5 +51,8 @@
     "pug": "^3.0.3",
     "sass": "^1.94.0",
     "stylelint": "^16.25.0"
+  },
+  "dependencies": {
+    "vis-network": "^9.1.13"
   }
 }

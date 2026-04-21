@@ -70,6 +70,14 @@ $cp-theme-default: cyberpunk !default;
     --cp-green: #{cp-color(green)};
     --cp-amber: #{cp-color(amber)};
     --cp-blue: #{cp-color(blue)};
+    // Muted titlebar chrome (terminal / window dots) — tracks active theme via var(--cp-*)
+    --cp-chrome-dot-ring: rgba(0, 0, 0, 0.35);
+    --cp-chrome-close-bg: color-mix(in srgb, var(--cp-magenta) 42%, transparent);
+    --cp-chrome-close-border: color-mix(in srgb, var(--cp-magenta) 55%, var(--cp-border));
+    --cp-chrome-min-bg: color-mix(in srgb, var(--cp-blue) 42%, transparent);
+    --cp-chrome-min-border: color-mix(in srgb, var(--cp-blue) 52%, var(--cp-border));
+    --cp-chrome-max-bg: color-mix(in srgb, var(--cp-cyan) 38%, transparent);
+    --cp-chrome-max-border: color-mix(in srgb, var(--cp-cyan) 48%, var(--cp-border));
 }
 
 // Mixin to output a full theme as CSS variables on a selector
@@ -91,6 +99,13 @@ $cp-theme-default: cyberpunk !default;
     --cp-green: #{map.get($m, green)};
     --cp-amber: #{map.get($m, amber)};
     --cp-blue: #{map.get($m, blue)};
+    --cp-chrome-dot-ring: rgba(0, 0, 0, 0.35);
+    --cp-chrome-close-bg: color-mix(in srgb, var(--cp-magenta) 42%, transparent);
+    --cp-chrome-close-border: color-mix(in srgb, var(--cp-magenta) 55%, var(--cp-border));
+    --cp-chrome-min-bg: color-mix(in srgb, var(--cp-blue) 42%, transparent);
+    --cp-chrome-min-border: color-mix(in srgb, var(--cp-blue) 52%, var(--cp-border));
+    --cp-chrome-max-bg: color-mix(in srgb, var(--cp-cyan) 38%, transparent);
+    --cp-chrome-max-border: color-mix(in srgb, var(--cp-cyan) 48%, var(--cp-border));
 }
 
 /* Usage:
