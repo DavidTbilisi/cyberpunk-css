@@ -9,8 +9,10 @@
     "test:coverage": "jest --coverage --runInBand",
     "build:css": "npx sass scss/cyberpunk.scss cyberpunk.css --style=expanded",
     "build:css:min": "npx sass scss/cyberpunk.scss cyberpunk.min.css --style=compressed",
+    "scss:watch": "npx sass scss/cyberpunk.scss cyberpunk.min.css --style=compressed -w",
     "lint:css": "stylelint \"**/*.scss\"",
-    "test:e2e": "npx playwright test"
+    "test:e2e": "npx playwright test",
+    "pug:watch": "pug templates -o ./ --watch --pretty"
   },
   "keywords": [],
   "author": "",
@@ -44,6 +46,8 @@
     "jest-environment-jsdom": "^30.2.0",
     "jsdom": "^27.2.0",
     "playwright": "^1.56.1",
+    "postcss-scss": "^4.0.9",
+    "pug": "^3.0.3",
     "sass": "^1.94.0",
     "stylelint": "^16.25.0"
   }

@@ -9,7 +9,9 @@
 @use 'mixins' as *;
 
 // Base & Typography
+@use 'reset';
 @use 'base';
+@use 'colors';
 @use 'typography';
 
 // Code block styles

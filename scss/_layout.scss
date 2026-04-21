@@ -2,20 +2,337 @@
 // LAYOUT HELPERS
 // --------------------------------------------------------
 
-.cp-hstack {
-  display: flex;
-  align-items: center;
-  gap: 16px;
+@use 'variables' as *;
+
+// ========================================================
+// Compact layout utilities (mnemonics)
+// Goal: minimal class names, composable, responsive prefixes
+// Naming conventions (assembly-like):
+//  - d-{b,i,f,g,n}        display (block, inline, flex, grid, none)
+//  - fd-{r,c}             flex-direction (row, column)
+//  - jc-{c,sb,sa,fs,fe}   justify-content
+//  - ai-{c,s,e}           align-items
+//  - gp-{0..5}            gap scale
+//  - g / gN               grid auto-fit or fixed N columns (g2..g6)
+//  - sp-N                 grid-column span N
+//  - ct                   container (max width + padding)
+//  - w-25/50/75/full      width helpers
+//  - flow                 wrapping inline flow
+//  - hs / vs              horizontal / vertical stack
+// Responsive prefixes: sm-, md-, lg-, xl- (min-width)
+// ========================================================
+
+/* base helpers (display) */
+.d-b {
+  display: block
 }
 
+.d-i {
+  display: inline
+}
+
+.d-f {
+  display: flex
+}
+
+.d-g {
+  display: grid
+}
+
+.d-n {
+  display: none
+}
+
+/* flex helpers */
+.fd-r {
+  flex-direction: row
+}
+
+.fd-c {
+  flex-direction: column
+}
+
+.jc-c {
+  justify-content: center
+}
+
+.jc-sb {
+  justify-content: space-between
+}
+
+.jc-sa {
+  justify-content: space-around
+}
+
+.jc-fs {
+  justify-content: flex-start
+}
+
+.jc-fe {
+  justify-content: flex-end
+}
+
+.ai-c {
+  align-items: center
+}
+
+.ai-s {
+  align-items: flex-start
+}
+
+.ai-e {
+  align-items: flex-end
+}
+
+/* gap utilities map */
+$__gp-map: (
+  0: 0,
+  1: $cp-space-xs,
+  2: $cp-space-sm,
+  3: $cp-space-md,
+  4: $cp-space-lg,
+  5: $cp-space-xl
+);
+
+@each $k, $v in $__gp-map {
+  .gp-#{$k} {
+    gap: $v !important;
+  }
+}
+
+/* grid helpers */
+.g {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(#{$auto-grid-min}, 1fr));
+  gap: $auto-grid-gap;
+}
+
+@for $i from 1 through 6 {
+  .g#{$i} {
+    display: grid;
+    grid-template-columns: repeat(#{$i}, 1fr);
+    gap: $auto-grid-gap;
+  }
+}
+
+/* span helpers */
+@for $i from 1 through $cp-grid-max-columns {
+  .sp-#{$i} {
+    grid-column: span #{$i};
+  }
+}
+
+/* container shorthand */
+.ct {
+  max-width: $cp-large;
+  margin: 0 auto;
+  padding-left: $cp-container-padding;
+  padding-right: $cp-container-padding;
+}
+
+/* width helpers */
+.w-25 {
+  width: 25%
+}
+
+.w-50 {
+  width: 50%
+}
+
+.w-75 {
+  width: 75%
+}
+
+.w-full {
+  width: 100%
+}
+
+/* flow and stacks */
+.flow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $cp-flow-gap
+}
+
+.hs {
+  display: flex;
+  align-items: center;
+  gap: $cp-space-md
+}
+
+.vs {
+  display: flex;
+  flex-direction: column;
+  gap: $cp-space-md
+}
+
+/* small helpers */
 .cp-center {
   display: flex;
   justify-content: center;
+  align-items: center
+}
+
+.cp-hstack {
+  display: flex;
   align-items: center;
+  gap: $cp-space-md
 }
 
 .cp-stack {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: $cp-space-md
 }
+
+.cp-container {
+  max-width: $cp-large;
+  margin: 0 auto
+}
+
+.cp-m {
+  margin: $cp-margin
+}
+
+/* ------------------------------------------------------- */
+/* Responsive variants (prefix: sm-, md-, lg-, xl-)           */
+/* Example: md-d-f => display:flex at min-width $cp-break-md */
+/* ------------------------------------------------------- */
+$__bps: (
+  sm: $cp-break-sm,
+  md: $cp-break-md,
+  lg: $cp-break-lg,
+  xl: $cp-break-xl
+);
+
+@each $bp, $min in $__bps {
+  @media (min-width: $min) {
+    .#{$bp}-d-b {
+      display: block
+    }
+
+    .#{$bp}-d-i {
+      display: inline
+    }
+
+    .#{$bp}-d-f {
+      display: flex
+    }
+
+    .#{$bp}-d-g {
+      display: grid
+    }
+
+    .#{$bp}-d-n {
+      display: none
+    }
+
+    .#{$bp}-fd-r {
+      flex-direction: row
+    }
+
+    .#{$bp}-fd-c {
+      flex-direction: column
+    }
+
+    .#{$bp}-jc-c {
+      justify-content: center
+    }
+
+    .#{$bp}-jc-sb {
+      justify-content: space-between
+    }
+
+    .#{$bp}-jc-sa {
+      justify-content: space-around
+    }
+
+    .#{$bp}-jc-fs {
+      justify-content: flex-start
+    }
+
+    .#{$bp}-jc-fe {
+      justify-content: flex-end
+    }
+
+    .#{$bp}-ai-c {
+      align-items: center
+    }
+
+    .#{$bp}-ai-s {
+      align-items: flex-start
+    }
+
+    .#{$bp}-ai-e {
+      align-items: flex-end
+    }
+
+    @each $k, $v in $__gp-map {
+      .#{$bp}-gp-#{$k} {
+        gap: $v !important;
+      }
+    }
+
+    .#{$bp}-g {
+      grid-template-columns: repeat(auto-fit, minmax(#{$auto-grid-min}, 1fr));
+      gap: $auto-grid-gap;
+      display: grid
+    }
+
+    @for $i from 1 through 6 {
+      .#{$bp}-g#{$i} {
+        display: grid;
+        grid-template-columns: repeat(#{$i}, 1fr);
+        gap: $auto-grid-gap
+      }
+    }
+
+    @for $i from 1 through $cp-grid-max-columns {
+      .#{$bp}-sp-#{$i} {
+        grid-column: span #{$i};
+      }
+    }
+
+    .#{$bp}-w-25 {
+      width: 25%
+    }
+
+    .#{$bp}-w-50 {
+      width: 50%
+    }
+
+    .#{$bp}-w-75 {
+      width: 75%
+    }
+
+    .#{$bp}-w-full {
+      width: 100%
+    }
+
+    .#{$bp}-ct {
+      max-width: $cp-large;
+      margin: 0 auto;
+      padding-left: $cp-container-padding;
+      padding-right: $cp-container-padding
+    }
+
+    .#{$bp}-flow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: $cp-flow-gap
+    }
+
+    .#{$bp}-hs {
+      display: flex;
+      align-items: center;
+      gap: $cp-space-md
+    }
+
+    .#{$bp}-vs {
+      display: flex;
+      flex-direction: column;
+      gap: $cp-space-md
+    }
+  }
+}
+

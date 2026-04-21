@@ -1,0 +1,122 @@
+@use 'sass:map' as map;
+@use 'variables' as *;
+
+// --------------------------------------------------------
+// COLOR PALETTES
+// --------------------------------------------------------
+// Two ready-made themes: `cyberpunk` (default) and `matrix`.
+// Each is a map of semantic tokens that you can merge into your variables.
+
+$palette-cyberpunk: (
+    bg: #0a0a12,
+    panel: rgba(0, 0, 0, 0.40),
+    foreground: #e6e6ff,
+    muted: #7c7c9a,
+    border: #3b3566,
+    cyan: #28f7ff,
+    purple: #5f4af5,
+    magenta: #ff2ad4,
+    green: #3aff8c,
+    amber: #ffbf3a,
+    blue: #2a9df4,
+    accent: #5f4af5
+);
+
+$palette-matrix: (
+    bg: #041006,
+    panel: rgba(2, 12, 4, 0.6),
+    foreground: #b7f59b,
+    muted: #6aa86a,
+    border: rgba(0, 255, 70, 0.06),
+    cyan: #6aff9e,
+    purple: #3bff7a,
+    magenta: #7aff66,
+    green: #00ff41,
+    amber: #9cff5a,
+    blue: #5af5b6,
+    accent: #00ff41
+);
+
+// Registry of themes
+$cp-themes: (
+    cyberpunk: $palette-cyberpunk,
+    matrix: $palette-matrix
+);
+
+// Default theme name
+$cp-theme-default: cyberpunk !default;
+
+// Helper: get a color from a named theme
+@function cp-color($key, $theme: $cp-theme-default) {
+    $theme-map: map.get($cp-themes, $theme);
+
+    @if $theme-map ==null {
+        @error "Unknown theme `#{$theme}`. Available: #{map.keys($cp-themes)}";
+    }
+
+    @return map.get($theme-map, $key);
+}
+
+// Expose default theme as CSS custom properties on :root
+:root {
+    --cp-bg: #{cp-color(bg)};
+    --cp-bg-panel: #{cp-color(panel)};
+    --cp-foreground: #{cp-color(foreground)};
+    --cp-muted: #{cp-color(muted)};
+    --cp-border: #{cp-color(border)};
+    --cp-cyan: #{cp-color(cyan)};
+    --cp-purple: #{cp-color(purple)};
+    --cp-magenta: #{cp-color(magenta)};
+    --cp-green: #{cp-color(green)};
+    --cp-amber: #{cp-color(amber)};
+    --cp-blue: #{cp-color(blue)};
+}
+
+// Mixin to output a full theme as CSS variables on a selector
+@mixin theme-variables($theme-name) {
+    $m: map.get($cp-themes, $theme-name);
+
+    @if $m ==null {
+        @error "Unknown theme `#{$theme-name}`";
+    }
+
+    --cp-bg: #{map.get($m, bg)};
+    --cp-bg-panel: #{map.get($m, panel)};
+    --cp-foreground: #{map.get($m, foreground)};
+    --cp-muted: #{map.get($m, muted)};
+    --cp-border: #{map.get($m, border)};
+    --cp-cyan: #{map.get($m, cyan)};
+    --cp-purple: #{map.get($m, purple)};
+    --cp-magenta: #{map.get($m, magenta)};
+    --cp-green: #{map.get($m, green)};
+    --cp-amber: #{map.get($m, amber)};
+    --cp-blue: #{map.get($m, blue)};
+}
+
+/* Usage:
+	 - default theme is `cyberpunk` (applied to :root)
+	 - to enable matrix theme add `.theme-matrix { @include theme-variables(matrix); }`
+*/
+
+.theme-matrix {
+    @include theme-variables(matrix);
+}
+
+// --------------------------------------------------------
+// Utilities: background and text color helpers
+// Generate `.bg-<key>` and `.txt-<key>` for each color token in `$cp-color-map`.
+// These use CSS variables (var(--cp-...)) so changing theme via `.theme-...` updates utilities automatically.
+// --------------------------------------------------------
+$__cp-color-keys: map.keys($cp-color-map);
+
+@each $k in $__cp-color-keys {
+    $var: '--cp-#{$k}';
+
+    .bg-#{$k} {
+        background-color: var(#{$var}) !important;
+    }
+
+    .txt-#{$k} {
+        color: var(#{$var}) !important;
+    }
+}

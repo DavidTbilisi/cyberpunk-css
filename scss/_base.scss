@@ -1,16 +1,17 @@
 // --------------------------------------------------------
-// BASE STYLES
+// BASE STYLES (opinionated element-first)
 // --------------------------------------------------------
 
 @use 'variables' as *;
 @use 'mixins' as *;
 @use 'fonts' as *;
+@use 'sass:map' as map;
 
-/* Expose palette as CSS custom properties so demos using `var(--cp-*)` work */
+/* Export palette to CSS custom properties for JS demos */
 :root {
   --cp-bg: #{$cp-bg};
   --cp-bg-panel: #{$cp-bg-panel};
-  --cp-green: #{$cp-green};
+  --cp-foreground: #{$cp-foreground};
   --cp-cyan: #{$cp-cyan};
   --cp-magenta: #{$cp-magenta};
   --cp-purple: #{$cp-purple};
@@ -20,23 +21,233 @@
   --cp-border: #{$cp-border};
 }
 
+/* sensible box-sizing */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
-html, body {
-  margin: 0; padding: 0;
+/* Page defaults */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
   background: $cp-bg;
-  color: $cp-green;
+  color: $cp-foreground;
   font-family: $font-body;
-  font-size: 20px;
+  font-size: $cp-font-size-base;
+  line-height: $cp-line-height-base;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
+/* Global links */
 a {
   @include retro-glow-text($cp-cyan);
   text-decoration: none;
-
-  &:hover { color: $cp-magenta; }
+  color: var(--cp-foreground);
 }
+
+a:hover,
+a:focus {
+  color: $cp-magenta;
+}
+
+/* Headings: compact, semantic sizes from variables */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0 0 $cp-space-md 0;
+  font-weight: 700;
+  color: $cp-foreground
+}
+
+h1 {
+  font-size: map.get($cp-heading-scale, h1)
+}
+
+h2 {
+  font-size: map.get($cp-heading-scale, h2)
+}
+
+h3 {
+  font-size: map.get($cp-heading-scale, h3)
+}
+
+h4 {
+  font-size: map.get($cp-heading-scale, h4)
+}
+
+h5 {
+  font-size: map.get($cp-heading-scale, h5)
+}
+
+h6 {
+  font-size: map.get($cp-heading-scale, h6)
+}
+
+/* Semantic layout blocks */
+header,
+nav,
+main,
+footer,
+section,
+article,
+aside {
+  display: block
+}
+
+/* Header / Nav defaults */
+header {
+  background: transparent;
+  color: $cp-foreground
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: $cp-space-sm;
+  align-items: center
+}
+
+nav a {
+  color: inherit;
+  padding: .5rem .75rem;
+  border-radius: $cp-radius-sm
+}
+
+/* Buttons & controls — element-first styling */
+button,
+input[type="button"],
+input[type="submit"],
+.btn {
+  appearance: none;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: linear-gradient(180deg, rgba($cp-cyan, 0.14), rgba($cp-cyan, 0.06));
+  color: $cp-bg;
+  padding: $cp-btn-padding-y $cp-btn-padding-x;
+  border-radius: $cp-btn-radius;
+  font-weight: $cp-btn-font-weight;
+  cursor: pointer;
+  transition: box-shadow $cp-transition-duration $cp-transition-ease, transform $cp-transition-duration $cp-transition-ease;
+}
+
+button:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover {
+  box-shadow: 0 6px 20px rgba($cp-cyan, 0.08);
+  transform: translateY(-1px)
+}
+
+/* Forms */
+input,
+textarea,
+select {
+  background: $cp-input-bg;
+  color: $cp-foreground;
+  border: 1px solid $cp-border;
+  padding: $cp-input-padding;
+  border-radius: $cp-radius-sm;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+textarea {
+  min-height: 8rem
+}
+
+/* Focus states */
+:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba($cp-cyan, 0.08);
+  border-color: $cp-cyan
+}
+
+/* Cards / panels */
+section,
+article,
+.panel {
+  background: $cp-bg-panel;
+  border-radius: $cp-radius-md;
+  padding: $cp-space-md;
+  border: 1px solid $cp-border;
+}
+
+/* Code and pre */
+code,
+kbd,
+samp {
+  font-family: $cp-font-family-mono;
+  background: rgba(255, 255, 255, 0.02);
+  padding: .12rem .28rem;
+  border-radius: 4px
+}
+
+pre {
+  background: $cp-bg-panel;
+  padding: $cp-space-md;
+  border-radius: $cp-radius-md;
+  overflow: auto
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .95rem
+}
+
+th,
+td {
+  padding: .6rem .8rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03)
+}
+
+tbody tr:nth-child(odd) {
+  background: rgba(255, 255, 255, 0.01)
+}
+
+/* Lists */
+ul,
+ol {
+  margin: 0 0 $cp-space-md 0;
+  padding-left: 1.25rem
+}
+
+/* Utility: visually hidden (accessible) */
+.sr-only {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0
+}
+
+/* Small screens sensible defaults */
+@media (max-width: $cp-break-md) {
+  html {
+    font-size: 15px
+  }
+
+  nav ul {
+    flex-wrap: wrap;
+    gap: $cp-space-xs
+  }
+
+  .ct {
+    padding-left: $cp-space-md;
+    padding-right: $cp-space-md
+  }
+}
+
+/* Notes: prefer element-first patterns — add classes only when necessary for complex layouts */

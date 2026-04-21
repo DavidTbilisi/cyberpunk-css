@@ -1,16 +1,191 @@
+@use 'sass:map' as map;
+@use 'sass:math' as math;
 
 // --------------------------------------------------------
-// 2) COLORS
+// 0) THEME & PALETTE
 // --------------------------------------------------------
-$cp-bg: #0a0a12;
-$cp-bg-panel: rgba(0, 0, 0, 0.40);
+$cp-bg: #0a0a12 !default;
+$cp-bg-panel: rgba(0, 0, 0, 0.40) !default;
 
-$cp-green: #3aff8c;
-$cp-amber: #ffbf3a;
-$cp-magenta: #ff2ad4;
-$cp-cyan: #28f7ff;
-$cp-purple: #5f4af5;
-$cp-blue: #2a9df4;
+$cp-foreground: #e6e6ff !default;
+$cp-muted: #7c7c9a !default;
+$cp-border: #3b3566 !default;
 
-$cp-muted: #7c7c9a;
-$cp-border: #3b3566;
+$cp-green: #3aff8c !default;
+$cp-amber: #ffbf3a !default;
+$cp-magenta: #ff2ad4 !default;
+$cp-cyan: #28f7ff !default;
+$cp-purple: #5f4af5 !default;
+$cp-blue: #2a9df4 !default;
+
+// Semantic palette (map for easy overrides)
+$cp-colors: (
+    bg: $cp-bg,
+    panel: $cp-bg-panel,
+    foreground: $cp-foreground,
+    muted: $cp-muted,
+    border: $cp-border,
+    success: $cp-green,
+    warning: $cp-amber,
+    danger: $cp-magenta,
+    primary: $cp-cyan,
+    accent: $cp-purple,
+    info: $cp-blue) !default;
+
+// Surfaces
+$cp-surface-elev0: transparent !default;
+$cp-surface-elev1: rgba(255, 255, 255, 0.02) !default;
+$cp-surface-elev2: rgba(255, 255, 255, 0.03) !default;
+$cp-surface-elev3: rgba(255, 255, 255, 0.05) !default;
+$cp-backdrop: rgba(0, 0, 0, 0.6) !default;
+
+// --------------------------------------------------------
+// 1) BREAKPOINTS & SIZES
+// --------------------------------------------------------
+$cp-break-xs: 360px !default;
+$cp-break-sm: 576px !default;
+$cp-break-md: 768px !default;
+$cp-break-lg: 1024px !default;
+$cp-break-xl: 1300px !default;
+
+// page/container sizes
+$cp-large: 1300px !default;
+$cp-container-max: 1200px !default;
+$cp-margin: 5rem !default;
+$cp-padding: 5rem !default;
+
+// --------------------------------------------------------
+// 2) SPACING SCALE
+// --------------------------------------------------------
+$cp-space-xxs: 0.25rem !default;
+$cp-space-xs: 0.5rem !default;
+$cp-space-sm: 0.75rem !default;
+$cp-space-md: 1rem !default;
+$cp-space-lg: 1.5rem !default;
+$cp-space-xl: 2.5rem !default;
+$cp-space-xxl: 4rem !default;
+
+// shorthand defaults
+$cp-container-padding: 1rem !default;
+
+// --------------------------------------------------------
+// 3) GRID
+// --------------------------------------------------------
+$cp-grid-min: 220px !default;
+$cp-grid-gap: 1rem !default;
+$cp-grid-max-columns: 12 !default;
+$cp-flow-gap: 0.75rem !default;
+
+// auto-grid helper variables
+$auto-grid-min: $cp-grid-min !default;
+$auto-grid-gap: $cp-grid-gap !default;
+
+// --------------------------------------------------------
+// 4) TYPOGRAPHY
+// --------------------------------------------------------
+$cp-font-family-system: -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    'Helvetica Neue',
+    Arial,
+    sans-serif !default;
+$cp-font-family-mono: 'SFMono-Regular',
+    Menlo,
+    Monaco,
+    'Roboto Mono',
+    monospace !default;
+
+$cp-font-size-base: 16px !default;
+$cp-line-height-base: 1.5 !default;
+
+$cp-type-xs: 0.75rem !default;
+$cp-type-sm: 0.875rem !default;
+$cp-type-md: 1rem !default;
+$cp-type-lg: 1.125rem !default;
+$cp-type-xl: 1.5rem !default;
+
+// optional heading scale map
+$cp-heading-scale: (
+    h1: 2rem,
+    h2: 1.5rem,
+    h3: 1.25rem,
+    h4: 1.125rem,
+    h5: 1rem,
+    h6: 0.875rem) !default;
+
+// --------------------------------------------------------
+// 5) RADII, BORDERS & SHADOWS
+// --------------------------------------------------------
+$cp-radius-0: 0 !default;
+$cp-radius-sm: 4px !default;
+$cp-radius-md: 8px !default;
+$cp-radius-lg: 12px !default;
+$cp-radius-pill: 9999px !default;
+
+$cp-border-width: 1px !default;
+$cp-border-strong: rgba(255, 255, 255, 0.06) !default;
+
+$cp-shadow-sm: 0 4px 10px rgba(0, 0, 0, 0.35) !default;
+$cp-shadow-md: 0 10px 30px rgba(0, 0, 0, 0.5) !default;
+
+// --------------------------------------------------------
+// 6) Z-INDEX
+// --------------------------------------------------------
+$cp-z-docked: 10 !default;
+$cp-z-default: 100 !default;
+$cp-z-dropdown: 400 !default;
+$cp-z-modal: 900 !default;
+$cp-z-toast: 1000 !default;
+$cp-z-max: 9999 !default;
+
+// --------------------------------------------------------
+// 7) MOTION & TRANSITIONS
+// --------------------------------------------------------
+$cp-transition-duration-fast: 120ms !default;
+$cp-transition-duration: 220ms !default;
+$cp-transition-ease: cubic-bezier(.2, .9, .2, 1) !default;
+
+// respect prefers-reduced-motion via mixin
+$cp-reduce-motion: false !default;
+
+// --------------------------------------------------------
+// 8) CONTROLS / UI SPECIFICS
+// --------------------------------------------------------
+$cp-btn-padding-y: 0.6rem !default;
+$cp-btn-padding-x: 1rem !default;
+$cp-btn-radius: $cp-radius-sm !default;
+$cp-btn-font-weight: 600 !default;
+$cp-icon-size: 1.125rem !default;
+
+$cp-input-height: 2.4rem !default;
+$cp-input-padding: 0.5rem 0.75rem !default;
+$cp-input-bg: rgba(255, 255, 255, 0.02) !default;
+
+$cp-scrollbar-thumb: rgba(255, 255, 255, 0.06) !default;
+$cp-scrollbar-track: transparent !default;
+
+$cp-logo-size: 1.25rem !default;
+$cp-navbar-height: 60px !default;
+$cp-navbar-toggle-size: 44px !default;
+
+$cp-focus-ring: 2px solid rgba(40, 247, 255, 0.2) !default;
+$cp-focus-offset: 3px !default;
+
+// Theme flags
+$cp-theme-dark: true !default;
+
+// Exported convenience maps
+$cp-color-map: map.merge($cp-colors, (primary: $cp-cyan,
+            accent: $cp-purple,
+            success: $cp-green,
+            warning: $cp-amber,
+            danger: $cp-magenta,
+            info: $cp-blue)) !default;
+
+// Helper: convert px to rem
+@function cp-rem($px) {
+    @return math.div($px, 16) * 1rem;
+}
+
+// Notes: override any of the above by setting the variable before importing this file.
